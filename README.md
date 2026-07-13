@@ -6,7 +6,7 @@
 
 | 黑底示例 | 白底示例 |
 |---|---|
-| ![Dark knowledge graph](assets/examples/knowledge-graph-method-dark.png) | ![Light knowledge graph](assets/examples/knowledge-graph-method-light.png) |
+| ![Dark knowledge graph](skills/build-knowledge-graph-visuals/assets/examples/knowledge-graph-method-dark.png) | ![Light knowledge graph](skills/build-knowledge-graph-visuals/assets/examples/knowledge-graph-method-light.png) |
 
 ## 能做什么
 
@@ -30,7 +30,7 @@ npx -y skills add https://github.com/songwenjing860-source/build-knowledge-graph
 
 ```bash
 git clone https://github.com/songwenjing860-source/build-knowledge-graph-visuals.git
-cp -R build-knowledge-graph-visuals ~/.codex/skills/
+cp -R build-knowledge-graph-visuals/skills/build-knowledge-graph-visuals ~/.codex/skills/
 ```
 
 安装后重新打开 Codex。
@@ -72,19 +72,20 @@ cp -R build-knowledge-graph-visuals ~/.codex/skills/
 
 ```text
 build-knowledge-graph-visuals/
-├── SKILL.md
 ├── README.md
 ├── LICENSE
-├── agents/openai.yaml
-├── assets/examples/
-├── references/
-│   ├── modeling-method.md
-│   ├── theme-system.md
-│   ├── adversarial-review.md
-│   └── qa-checklist.md
-└── scripts/
-    ├── compare_svg_structure.py
-    └── render_svg.py
+└── skills/build-knowledge-graph-visuals/
+    ├── SKILL.md
+    ├── agents/openai.yaml
+    ├── assets/examples/
+    ├── references/
+    │   ├── modeling-method.md
+    │   ├── theme-system.md
+    │   ├── adversarial-review.md
+    │   └── qa-checklist.md
+    └── scripts/
+        ├── compare_svg_structure.py
+        └── render_svg.py
 ```
 
 ## English
