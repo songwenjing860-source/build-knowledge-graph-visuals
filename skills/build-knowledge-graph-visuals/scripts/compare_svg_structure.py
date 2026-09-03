@@ -21,6 +21,7 @@ IGNORED_ATTRIBUTES = {
     "flood-opacity",
     "stop-color",
     "stop-opacity",
+    "data-theme",
 }
 
 

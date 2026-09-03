@@ -1,332 +1,88 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="2600" viewBox="0 0 1800 2600">
-  <defs>
-    <radialGradient id="bg" cx="50%" cy="36%" r="78%">
-      <stop offset="0%" stop-color="#ffffff"/>
-      <stop offset="42%" stop-color="#ffffff"/>
-      <stop offset="100%" stop-color="#ffffff"/>
-    </radialGradient>
-    <linearGradient id="coreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fb7185"/>
-      <stop offset="50%" stop-color="#8b5cf6"/>
-      <stop offset="100%" stop-color="#22d3ee"/>
-    </linearGradient>
-    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#dbeafe"/>
-      <stop offset="100%" stop-color="#60a5fa"/>
-    </linearGradient>
-    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#dcfce7"/>
-      <stop offset="100%" stop-color="#34d399"/>
-    </linearGradient>
-    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fef3c7"/>
-      <stop offset="100%" stop-color="#f59e0b"/>
-    </linearGradient>
-    <linearGradient id="violetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#ede9fe"/>
-      <stop offset="100%" stop-color="#a78bfa"/>
-    </linearGradient>
-    <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#fce7f3"/>
-      <stop offset="100%" stop-color="#f472b6"/>
-    </linearGradient>
-    <linearGradient id="slateGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f8fafc"/>
-      <stop offset="100%" stop-color="#cbd5e1"/>
-    </linearGradient>
-    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
-      <feGaussianBlur stdDeviation="9" result="blur"/>
-      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.30  0 0 0 0 0.58  0 0 0 0 1.00  0 0 0 .55 0"/>
-      <feMerge>
-        <feMergeNode/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
-    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
-      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#64748b" flood-opacity="0.16"/>
-    </filter>
-    <marker id="arrowCyan" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
-      <path d="M2,2 L12,7 L2,12 Z" fill="#0891b2"/>
-    </marker>
-    <marker id="arrowGold" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
-      <path d="M2,2 L12,7 L2,12 Z" fill="#d97706"/>
-    </marker>
-    <style>
-      .title { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 70px; font-weight: 950; fill: #0f172a; letter-spacing: 0; }
-      .subtitle { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 31px; fill: #334155; }
-      .caption { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 24px; fill: #64748b; }
-      .coreText { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 46px; font-weight: 950; fill: #ffffff; }
-      .coreSub { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 23px; fill: #e0f2fe; }
-      .nodeTitle { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 30px; font-weight: 900; fill: #111827; }
-      .nodeSub { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 21px; fill: #334155; }
-      .miniTitle { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 23px; font-weight: 850; fill: #0f172a; }
-      .miniSub { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 18px; fill: #475569; }
-      .edgeLabel { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 19px; font-weight: 800; fill: #334155; }
-      .edgeLabelBg { fill: #ffffff; fill-opacity: .96; stroke: #cbd5e1; stroke-width: 1; }
-      .legend { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 22px; fill: #334155; }
-      .smallWhite { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 23px; fill: #334155; }
-      .edge { fill: none; stroke: #0891b2; stroke-width: 3.2; stroke-opacity: .62; marker-end: url(#arrowCyan); }
-      .edgeGold { fill: none; stroke: #d97706; stroke-width: 3.2; stroke-opacity: .68; marker-end: url(#arrowGold); }
-      .edgeSoft { fill: none; stroke: #64748b; stroke-width: 2.3; stroke-opacity: .42; stroke-dasharray: 8 10; }
-      .ring { fill: none; stroke: #94a3b8; stroke-opacity: .28; stroke-width: 2; }
-      .node { filter: url(#softShadow); stroke: rgba(255,255,255,.65); stroke-width: 2; }
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="2600" viewBox="0 0 1800 2600" data-layout-version="2" data-profile="poster-radial" data-theme="light">
+<defs>
+<linearGradient id="background" x1="0" y1="0" x2="0" y2="1">
+<stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#f8fafc"/>
+</linearGradient>
+<linearGradient id="core" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f472b6"/><stop offset=".52" stop-color="#8b5cf6"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+<filter id="shadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="0" dy="12" stdDeviation="16" flood-opacity=".15"/></filter>
+<marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#0891b2"/></marker>
+<linearGradient id="blue" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#bfdbfe"/><stop offset="1" stop-color="#60a5fa"/></linearGradient>
+<linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#bbf7d0"/><stop offset="1" stop-color="#34d399"/></linearGradient>
+<linearGradient id="amber" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fde68a"/><stop offset="1" stop-color="#f59e0b"/></linearGradient>
+<linearGradient id="violet" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ddd6fe"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+<linearGradient id="rose" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbcfe8"/><stop offset="1" stop-color="#f472b6"/></linearGradient>
+</defs>
+<style>
+      text { font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC','Microsoft YaHei',sans-serif; }
+      .title { fill:#0f172a; font-weight:900; font-size:72px; }
+      .subtitle { fill:#475569; font-weight:600; font-size:32px; }
+      .guide { fill:#64748b; font-size:25px; }
+      .legend { fill:#475569; font-size:20px; font-weight:700; }
+      .ring { fill:none; stroke:#dbe3ee; stroke-width:2; opacity:.72; }
+      .edge { fill:none; stroke-linecap:round; }
+      .edge.strong { stroke:#0891b2; stroke-width:3.2; opacity:.76; }
+      .edge.weak { stroke:#94a3b8; stroke-width:2.2; stroke-dasharray:9 12; opacity:.52; }
+      .edge-label-bg { fill:#ffffff; stroke:#dbe3ee; stroke-width:1.5; }
+      .edge-label { fill:#0f172a; font-size:19px; font-weight:800; }
+      .node-shape { stroke:#ffffff; stroke-width:2; filter:url(#shadow); }
+      .primary-shape { stroke-width:2.5; }
+      .satellite-shape { opacity:.96; }
+      .color-blue { fill:url(#blue); } .color-green { fill:url(#green); }
+      .color-amber { fill:url(#amber); } .color-violet { fill:url(#violet); }
+      .color-rose { fill:url(#rose); }
+      .center-shape { fill:url(#core); stroke:#ffffff; stroke-width:5; filter:url(#shadow); }
+      .node-title { fill:#0f172a; font-weight:900; }
+      .node-sub { fill:#334155; font-weight:550; }
+      .center-title,.center-sub { fill:#ffffff; }
+      .center-sub { font-weight:650; }
+      .footer-panel { fill:#ffffff; stroke:#dbe3ee; stroke-width:1.5; }
+      .footer { fill:#475569; font-size:20px; }
+      .source { fill:#64748b; font-size:17px; }
     </style>
-  </defs>
-
-  <rect width="1800" height="2600" fill="url(#bg)"/>
-  <circle class="ring" cx="900" cy="1250" r="410"/>
-  <circle class="ring" cx="900" cy="1250" r="660"/>
-  <circle class="ring" cx="900" cy="1250" r="850"/>
-
-  <text class="title" x="100" y="130">知识图谱构建方法</text>
-  <text class="subtitle" x="104" y="178">开放方法 · 双主题 · 可验证关系版</text>
-  <text class="caption" x="104" y="222">读图方式：中心是构建目标，第一圈是关键步骤，外圈是原则、工具、风险与验收。</text>
-
-  <!-- Legend -->
-  <g transform="translate(100,270)">
-    <rect x="0" y="0" width="1600" height="84" rx="28" fill="#ffffff" opacity=".98" stroke="#cbd5e1"/>
-    <circle cx="48" cy="42" r="16" fill="url(#blueGrad)"/>
-    <text class="legend" x="76" y="50">内容建模</text>
-    <circle cx="250" cy="42" r="16" fill="url(#greenGrad)"/>
-    <text class="legend" x="278" y="50">关系设计</text>
-    <circle cx="452" cy="42" r="16" fill="url(#amberGrad)"/>
-    <text class="legend" x="480" y="50">风险与删减</text>
-    <circle cx="690" cy="42" r="16" fill="url(#violetGrad)"/>
-    <text class="legend" x="718" y="50">质量验证</text>
-    <circle cx="920" cy="42" r="16" fill="url(#pinkGrad)"/>
-    <text class="legend" x="948" y="50">发布复用</text>
-    <path d="M1200 42 H1285" class="edge"/>
-    <text class="legend" x="1310" y="50">强关系</text>
-    <path d="M1440 42 H1525" class="edgeSoft"/>
-    <text class="legend" x="1540" y="50">弱关联</text>
-  </g>
-
-  <!-- Edges under nodes -->
-  <path class="edgeGold" d="M900 705 C900 820, 900 910, 900 1034"/>
-  <path class="edge" d="M1038 1110 C1160 1048, 1255 985, 1382 905"/>
-  <path class="edge" d="M1045 1265 C1195 1288, 1320 1328, 1450 1410"/>
-  <path class="edgeGold" d="M900 1466 C900 1585, 900 1668, 900 1792"/>
-  <path class="edge" d="M762 1265 C616 1300, 502 1378, 380 1490"/>
-  <path class="edge" d="M762 1110 C630 1045, 520 970, 398 865"/>
-
-  <!-- Cross relationships -->
-  <path class="edgeSoft" d="M398 865 C610 780, 705 780, 900 705"/>
-  <path class="edgeSoft" d="M1382 905 C1240 1040, 1165 1150, 1038 1110"/>
-  <path class="edgeSoft" d="M380 1490 C555 1595, 700 1690, 900 1792"/>
-  <path class="edgeSoft" d="M1450 1410 C1258 1535, 1090 1660, 900 1792"/>
-  <path class="edgeSoft" d="M900 705 C1110 800, 1240 1040, 1450 1410"/>
-  <path class="edgeSoft" d="M398 865 C540 1120, 470 1310, 380 1490"/>
-
-  <!-- Edge labels -->
-  <g>
-    <rect class="edgeLabelBg" x="909" y="841" width="90" height="40" rx="14"/>
-    <text class="edgeLabel" x="925" y="868">定义目标</text>
-  </g>
-  <g>
-    <rect class="edgeLabelBg" x="1015" y="954" width="170" height="40" rx="14"/>
-    <text class="edgeLabel" x="1031" y="981">产出关系表</text>
-  </g>
-  <g>
-    <rect class="edgeLabelBg" x="1075" y="1284" width="150" height="40" rx="14"/>
-    <text class="edgeLabel" x="1091" y="1311">输出双主题</text>
-  </g>
-  <g>
-    <rect class="edgeLabelBg" x="910" y="1622" width="110" height="40" rx="14"/>
-    <text class="edgeLabel" x="926" y="1649">必须验证</text>
-  </g>
-  <g>
-    <rect class="edgeLabelBg" x="526" y="1331" width="110" height="40" rx="14"/>
-    <text class="edgeLabel" x="542" y="1358">暴露风险</text>
-  </g>
-  <g>
-    <rect class="edgeLabelBg" x="496" y="971" width="110" height="40" rx="14"/>
-    <text class="edgeLabel" x="512" y="998">支撑复用</text>
-  </g>
-
-  <!-- Center -->
-  <g filter="url(#glow)">
-    <circle cx="900" cy="1250" r="205" fill="url(#coreGrad)" stroke="#ffffff" stroke-opacity=".8" stroke-width="4"/>
-    <circle cx="900" cy="1250" r="172" fill="#111827" opacity=".28"/>
-  </g>
-  <text class="coreText" x="785" y="1242">知识图谱</text>
-  <text class="coreSub" x="742" y="1290">把内容变成可验证的知识关系</text>
-  <text class="coreSub" x="755" y="1325">服务理解 / 复习 / 传播</text>
-
-  <!-- First-ring nodes -->
-  <g>
-    <rect class="node" x="705" y="560" width="390" height="145" rx="38" fill="url(#blueGrad)"/>
-    <text class="nodeTitle" x="760" y="622">读者任务</text>
-    <text class="nodeSub" x="760" y="664">明确图要帮助谁做什么</text>
-  </g>
-  <g>
-    <rect class="node" x="1195" y="790" width="395" height="150" rx="38" fill="url(#greenGrad)"/>
-    <text class="nodeTitle" x="1250" y="852">实体与关系</text>
-    <text class="nodeSub" x="1250" y="894">定义节点、方向与证据</text>
-  </g>
-  <g>
-    <rect class="node" x="1245" y="1360" width="410" height="150" rx="38" fill="url(#greenGrad)"/>
-    <text class="nodeTitle" x="1300" y="1422">双主题布局</text>
-    <text class="nodeSub" x="1300" y="1464">共享坐标，切换视觉变量</text>
-  </g>
-  <g>
-    <rect class="node" x="705" y="1790" width="390" height="150" rx="38" fill="url(#violetGrad)"/>
-    <text class="nodeTitle" x="760" y="1852">质量验证</text>
-    <text class="nodeSub" x="760" y="1894">内容、结构、可读性、导出</text>
-  </g>
-  <g>
-    <rect class="node" x="210" y="1435" width="380" height="150" rx="38" fill="url(#amberGrad)"/>
-    <text class="nodeTitle" x="265" y="1497">风险与删减</text>
-    <text class="nodeSub" x="265" y="1539">删除装饰节点和无效连线</text>
-  </g>
-  <g>
-    <rect class="node" x="215" y="790" width="365" height="150" rx="38" fill="url(#pinkGrad)"/>
-    <text class="nodeTitle" x="270" y="852">复用与发布</text>
-    <text class="nodeSub" x="270" y="894">沉淀 Skill、模板和脚本</text>
-  </g>
-
-  <!-- Outer mini nodes: input -->
-  <g>
-    <rect class="node" x="515" y="430" width="250" height="105" rx="28" fill="#eff6ff"/>
-    <text class="miniTitle" x="562" y="472">中心命题</text>
-    <text class="miniSub" x="562" y="506">一句可验证的核心判断</text>
-    <path class="edgeSoft" d="M765 485 C815 500, 850 525, 900 560"/>
-  </g>
-  <g>
-    <rect class="node" x="830" y="385" width="250" height="105" rx="28" fill="#eff6ff"/>
-    <text class="miniTitle" x="877" y="427">证据来源</text>
-    <text class="miniSub" x="877" y="461">文章、数据、定义、案例</text>
-    <path class="edgeSoft" d="M955 490 C940 515, 920 535, 900 560"/>
-  </g>
-  <g>
-    <rect class="node" x="1145" y="430" width="250" height="105" rx="28" fill="#eff6ff"/>
-    <text class="miniTitle" x="1208" y="472">概念归一</text>
-    <text class="miniSub" x="1192" y="506">合并同义，保留关键差异</text>
-    <path class="edgeSoft" d="M1145 500 C1070 520, 1005 535, 955 560"/>
-  </g>
-  <g>
-    <rect class="node" x="690" y="740" width="250" height="105" rx="28" fill="#eff6ff"/>
-    <text class="miniTitle" x="737" y="782">优先级</text>
-    <text class="miniSub" x="728" y="816">读者价值与结构价值</text>
-    <path class="edgeSoft" d="M820 740 C840 720, 860 708, 885 705"/>
-  </g>
-
-  <!-- Outer mini nodes: slot -->
-  <g>
-    <rect class="node" x="1275" y="610" width="250" height="105" rx="28" fill="#ecfdf5"/>
-    <text class="miniTitle" x="1320" y="652">关系动词</text>
-    <text class="miniSub" x="1320" y="686">依赖、导致、衡量、支撑</text>
-    <path class="edgeSoft" d="M1400 715 C1395 745, 1390 770, 1382 790"/>
-  </g>
-  <g>
-    <rect class="node" x="1520" y="980" width="230" height="105" rx="28" fill="#ecfdf5"/>
-    <text class="miniTitle" x="1578" y="1022">强关系</text>
-    <text class="miniSub" x="1558" y="1056">主叙事必须读得通</text>
-    <path class="edgeSoft" d="M1520 1025 C1472 980, 1430 950, 1390 940"/>
-  </g>
-  <g>
-    <rect class="node" x="1220" y="1010" width="230" height="105" rx="28" fill="#ecfdf5"/>
-    <text class="miniTitle" x="1278" y="1052">弱关联</text>
-    <text class="miniSub" x="1255" y="1086">辅助联系，降低视觉权重</text>
-    <path class="edgeSoft" d="M1335 1010 C1345 980, 1360 955, 1382 940"/>
-  </g>
-
-  <!-- Outer mini nodes: mechanism -->
-  <g>
-    <rect class="node" x="1430" y="1620" width="260" height="105" rx="28" fill="#ecfdf5"/>
-    <text class="miniTitle" x="1496" y="1662">SVG 母版</text>
-    <text class="miniSub" x="1478" y="1696">文字准确、可编辑</text>
-    <path class="edgeSoft" d="M1535 1620 C1510 1575, 1480 1535, 1450 1510"/>
-  </g>
-  <g>
-    <rect class="node" x="1090" y="1575" width="260" height="105" rx="28" fill="#ecfdf5"/>
-    <text class="miniTitle" x="1147" y="1617">黑底主题</text>
-    <text class="miniSub" x="1133" y="1651">深色页面与演示</text>
-    <path class="edgeSoft" d="M1310 1575 C1360 1545, 1402 1525, 1435 1510"/>
-  </g>
-  <g>
-    <rect class="node" x="1240" y="1755" width="260" height="105" rx="28" fill="#ecfdf5"/>
-    <text class="miniTitle" x="1297" y="1797">白底主题</text>
-    <text class="miniSub" x="1278" y="1831">课程正文与打印</text>
-    <path class="edgeSoft" d="M1370 1755 C1390 1665, 1420 1575, 1450 1510"/>
-  </g>
-  <g>
-    <rect class="node" x="1515" y="1255" width="240" height="105" rx="28" fill="#ecfdf5"/>
-    <text class="miniTitle" x="1560" y="1297">一致性校验</text>
-    <text class="miniSub" x="1558" y="1331">文案、坐标、关系相同</text>
-    <path class="edgeSoft" d="M1515 1310 C1490 1335, 1470 1352, 1450 1360"/>
-  </g>
-
-  <!-- Outer mini nodes: optimization -->
-  <g>
-    <rect class="node" x="55" y="1175" width="270" height="105" rx="28" fill="#fff7ed"/>
-    <text class="miniTitle" x="113" y="1217">节点太多</text>
-    <text class="miniSub" x="105" y="1251">先删减，再考虑拆图</text>
-    <path class="edgeSoft" d="M245 1280 C275 1350, 315 1400, 380 1435"/>
-  </g>
-  <g>
-    <rect class="node" x="45" y="1625" width="270" height="105" rx="28" fill="#fff7ed"/>
-    <text class="miniTitle" x="114" y="1667">关系含混</text>
-    <text class="miniSub" x="105" y="1701">不用“相关”掩盖问题</text>
-    <path class="edgeSoft" d="M280 1625 C310 1600, 342 1584, 380 1585"/>
-  </g>
-  <g>
-    <rect class="node" x="360" y="1675" width="270" height="105" rx="28" fill="#fff7ed"/>
-    <text class="miniTitle" x="415" y="1717">装饰连线</text>
-    <text class="miniSub" x="402" y="1751">删除没有信息价值的边</text>
-    <path class="edgeSoft" d="M500 1675 C480 1625, 450 1590, 420 1585"/>
-  </g>
-  <g>
-    <rect class="node" x="250" y="1835" width="270" height="105" rx="28" fill="#fff7ed"/>
-    <text class="miniTitle" x="315" y="1877">小字陷阱</text>
-    <text class="miniSub" x="296" y="1911">大像素不等于手机可读</text>
-    <path class="edgeSoft" d="M385 1835 C390 1740, 395 1645, 400 1585"/>
-  </g>
-
-  <!-- Outer mini nodes: metric -->
-  <g>
-    <rect class="node" x="530" y="2035" width="260" height="105" rx="28" fill="#f5f3ff"/>
-    <text class="miniTitle" x="590" y="2077">证据覆盖率</text>
-    <text class="miniSub" x="575" y="2111">强关系均有依据</text>
-    <path class="edgeSoft" d="M760 2035 C790 1990, 835 1950, 880 1940"/>
-  </g>
-  <g>
-    <rect class="node" x="820" y="2090" width="260" height="105" rx="28" fill="#f5f3ff"/>
-    <text class="miniTitle" x="880" y="2132">手机可读性</text>
-    <text class="miniSub" x="866" y="2166">目标宽度实际预览</text>
-    <path class="edgeSoft" d="M950 2090 C940 2025, 920 1970, 900 1940"/>
-  </g>
-  <g>
-    <rect class="node" x="1110" y="2035" width="260" height="105" rx="28" fill="#f5f3ff"/>
-    <text class="miniTitle" x="1165" y="2077">结构一致性</text>
-    <text class="miniSub" x="1155" y="2111">黑白版本内容相同</text>
-    <path class="edgeSoft" d="M1110 2070 C1040 2020, 980 1975, 920 1940"/>
-  </g>
-
-  <!-- Outer mini nodes: interview -->
-  <g>
-    <rect class="node" x="40" y="610" width="270" height="105" rx="28" fill="#fdf2f8"/>
-    <text class="miniTitle" x="105" y="652">开始问题</text>
-    <text class="miniSub" x="82" y="686">读者看完要会什么？</text>
-    <path class="edgeSoft" d="M260 715 C300 740, 340 765, 398 790"/>
-  </g>
-  <g>
-    <rect class="node" x="70" y="1010" width="270" height="105" rx="28" fill="#fdf2f8"/>
-    <text class="miniTitle" x="136" y="1052">对抗审查</text>
-    <text class="miniSub" x="98" y="1086">真实性、必要性、替代结构</text>
-    <path class="edgeSoft" d="M290 1010 C330 970, 365 940, 398 940"/>
-  </g>
-  <g>
-    <rect class="node" x="345" y="560" width="270" height="105" rx="28" fill="#fdf2f8"/>
-    <text class="miniTitle" x="410" y="602">开源发布</text>
-    <text class="miniSub" x="388" y="636">README + MIT + 示例</text>
-    <path class="edgeSoft" d="M480 665 C465 715, 430 760, 398 790"/>
-  </g>
-
-  <!-- Bottom insight cards -->
-  <g transform="translate(100,2230)">
-    <rect x="0" y="0" width="1600" height="245" rx="40" fill="#ffffff" opacity="0" stroke="none"/>
-    <text class="smallWhite" x="58" y="66">这张图的核心判断：</text>
-    <text class="smallWhite" x="58" y="116">知识图谱不是“把内容放进彩色框”，而是对知识关系作出可检查的编辑判断。</text>
-    <text class="smallWhite" x="58" y="166">先建模，再布局；先验证，再公开。</text>
-  </g>
+<rect width="100%" height="100%" fill="url(#background)"/>
+<text class="title" x="42" y="94">知识图谱构建方法</text>
+<text class="subtitle" x="42" y="146">从原文证据到可验证关系，再到稳定的双主题视觉输出</text>
+<text class="guide" x="42" y="190">中心是交付目标，第一圈是四个必要阶段，外圈是各阶段的质量闸门。</text>
+<rect x="42" y="245" width="1716" height="88" rx="28" fill="#ffffff" stroke="#dbe3ee"/>
+<circle cx="60" cy="295" r="11" fill="#60a5fa"/><text class="legend" x="81" y="302">内容建模</text>
+<circle cx="212" cy="295" r="11" fill="#34d399"/><text class="legend" x="233" y="302">结构选择</text>
+<circle cx="364" cy="295" r="11" fill="#a78bfa"/><text class="legend" x="385" y="302">确定渲染</text>
+<circle cx="516" cy="295" r="11" fill="#f59e0b"/><text class="legend" x="537" y="302">质量验证</text>
+<path d="M 668 295 h 46" stroke="#0891b2" stroke-width="3" marker-end="url(#arrow)"/><text class="legend" x="729" y="302">强关系</text>
+<path d="M 823 295 h 46" stroke="#94a3b8" stroke-width="2" stroke-dasharray="8 10"/><text class="legend" x="884" y="302">弱关联</text>
+<ellipse class="ring" cx="900" cy="1370" rx="570" ry="570"/>
+<ellipse class="ring" cx="900" cy="1370" rx="710" ry="815"/>
+<g id="edges">
+<path data-role="edge" data-source="core" data-target="evidence" class="edge strong" d="M 900.0 1165.0 Q 900.0 1018.0 900.0 871.0" marker-end="url(#arrow)"/><g data-role="edge-label" data-edge-index="0"><rect class="edge-label-bg" x="856.5" y="993.1" width="87.0" height="38" rx="13"/><text class="edge-label" x="900.0" y="1019.1" text-anchor="middle">先建立</text></g>
+<path data-role="edge" data-source="evidence" data-target="atomic" class="edge weak" d="M 753.5 729.0 Q 719.2 712.4 685.0 695.8"/>
+<path data-role="edge" data-source="evidence" data-target="verbs" class="edge weak" d="M 1046.5 729.0 Q 1080.8 712.4 1115.0 695.8"/>
+<path data-role="edge" data-source="core" data-target="gate" class="edge strong" d="M 1105.0 1370.0 Q 1192.5 1370.0 1280.0 1370.0" marker-end="url(#arrow)"/><g data-role="edge-label" data-edge-index="3"><rect class="edge-label-bg" x="1158.0" y="1351.0" width="76.0" height="38" rx="13"/><text class="edge-label" x="1196.0" y="1377.0" text-anchor="middle">决定</text></g>
+<path data-role="edge" data-source="gate" data-target="cross" class="edge weak" d="M 1482.0 1299.0 Q 1502.9 1175.5 1523.8 1052.0"/>
+<path data-role="edge" data-source="gate" data-target="split" class="edge weak" d="M 1482.0 1441.0 Q 1502.9 1564.5 1523.8 1688.0"/>
+<path data-role="edge" data-source="core" data-target="template" class="edge strong" d="M 900.0 1575.0 Q 900.0 1722.0 900.0 1869.0" marker-end="url(#arrow)"/><g data-role="edge-label" data-edge-index="6"><rect class="edge-label-bg" x="862.0" y="1708.9" width="76.0" height="38" rx="13"/><text class="edge-label" x="900.0" y="1734.9" text-anchor="middle">生成</text></g>
+<path data-role="edge" data-source="template" data-target="themes" class="edge weak" d="M 1046.5 2011.0 Q 1080.8 2027.6 1115.0 2044.2"/>
+<path data-role="edge" data-source="template" data-target="profiles" class="edge weak" d="M 753.5 2011.0 Q 719.2 2027.6 685.0 2044.2"/>
+<path data-role="edge" data-source="core" data-target="qa" class="edge strong" d="M 695.0 1370.0 Q 607.5 1370.0 520.0 1370.0" marker-end="url(#arrow)"/><g data-role="edge-label" data-edge-index="9"><rect class="edge-label-bg" x="551.0" y="1351.0" width="106.0" height="38" rx="13"/><text class="edge-label" x="604.0" y="1377.0" text-anchor="middle">必须通过</text></g>
+<path data-role="edge" data-source="qa" data-target="collision" class="edge weak" d="M 318.0 1441.0 Q 297.1 1564.5 276.2 1688.0"/>
+<path data-role="edge" data-source="qa" data-target="regression" class="edge weak" d="M 318.0 1299.0 Q 297.1 1175.5 276.2 1052.0"/>
+<path data-role="edge" data-source="evidence" data-target="gate" class="edge strong" d="M 971.0 871.0 Q 1153.2 1116.8 1399.0 1299.0" marker-end="url(#arrow)"/><g data-role="edge-label" data-edge-index="12"><rect class="edge-label-bg" x="1105.7" y="1090.4" width="144.0" height="38" rx="13"/><text class="edge-label" x="1177.7" y="1116.4" text-anchor="middle">提供结构依据</text></g>
+<path data-role="edge" data-source="template" data-target="qa" class="edge strong" d="M 829.0 1869.0 Q 646.8 1623.2 401.0 1441.0" marker-end="url(#arrow)"/><g data-role="edge-label" data-edge-index="13"><rect class="edge-label-bg" x="569.3" y="1611.6" width="106.0" height="38" rx="13"/><text class="edge-label" x="622.3" y="1637.6" text-anchor="middle">接受验证</text></g>
+<path data-role="edge" data-source="qa" data-target="evidence" class="edge weak" d="M 401.0 1299.0 Q 551.4 1021.4 829.0 871.0"/>
+</g>
+<g id="nodes">
+<g id="node-evidence" data-role="node" data-node-role="primary" data-node-id="evidence" data-group="model" data-color="blue" data-x="710.0" data-y="729.0" data-width="380.0" data-height="142.0"><rect class="node-shape primary-shape color-blue" x="710.0" y="729.0" width="380.0" height="142.0" rx="34"/><text class="node-title primary-title" x="900.0" y="782.0" text-anchor="middle" style="font-size:31px">证据化建模</text><text class="node-sub primary-sub" x="900.0" y="825.0" text-anchor="middle" style="font-size:20px">节点和关系都能回到原文</text></g>
+<g id="node-atomic" data-role="node" data-node-role="satellite" data-node-id="atomic" data-group="model" data-color="blue" data-x="442.7" data-y="591.8" data-width="270.0" data-height="104.0"><rect class="node-shape satellite-shape color-blue" x="442.7" y="591.8" width="270.0" height="104.0" rx="27"/><text class="node-title satellite-title" x="577.7" y="625.8" text-anchor="middle" style="font-size:24px">原子节点</text><text class="node-sub satellite-sub" x="577.7" y="668.8" text-anchor="middle" style="font-size:20px">对象而不是目录标题</text></g>
+<g id="node-verbs" data-role="node" data-node-role="satellite" data-node-id="verbs" data-group="model" data-color="blue" data-x="1087.3" data-y="591.8" data-width="270.0" data-height="104.0"><rect class="node-shape satellite-shape color-blue" x="1087.3" y="591.8" width="270.0" height="104.0" rx="27"/><text class="node-title satellite-title" x="1222.3" y="625.8" text-anchor="middle" style="font-size:24px">关系动词</text><text class="node-sub satellite-sub" x="1222.3" y="668.8" text-anchor="middle" style="font-size:20px">能够读成完整判断</text></g>
+<g id="node-gate" data-role="node" data-node-role="primary" data-node-id="gate" data-group="select" data-color="green" data-x="1280.0" data-y="1299.0" data-width="380.0" data-height="142.0"><rect class="node-shape primary-shape color-green" x="1280.0" y="1299.0" width="380.0" height="142.0" rx="34"/><text class="node-title primary-title" x="1470.0" y="1352.0" text-anchor="middle" style="font-size:31px">结构闸门</text><text class="node-sub primary-sub" x="1470.0" y="1395.0" text-anchor="middle" style="font-size:20px">图谱、流程、层级或矩阵</text></g>
+<g id="node-cross" data-role="node" data-node-role="satellite" data-node-id="cross" data-group="select" data-color="green" data-x="1397.6" data-y="948.0" data-width="270.0" data-height="104.0"><rect class="node-shape satellite-shape color-green" x="1397.6" y="948.0" width="270.0" height="104.0" rx="27"/><text class="node-title satellite-title" x="1532.6" y="982.0" text-anchor="middle" style="font-size:24px">交叉关系</text><text class="node-sub satellite-sub" x="1532.6" y="1025.0" text-anchor="middle" style="font-size:20px">至少三条且有学习价值</text></g>
+<g id="node-split" data-role="node" data-node-role="satellite" data-node-id="split" data-group="select" data-color="green" data-x="1397.6" data-y="1688.0" data-width="270.0" data-height="104.0"><rect class="node-shape satellite-shape color-green" x="1397.6" y="1688.0" width="270.0" height="104.0" rx="27"/><text class="node-title satellite-title" x="1532.6" y="1722.0" text-anchor="middle" style="font-size:24px">主动拆图</text><text class="node-sub satellite-sub" x="1532.6" y="1765.0" text-anchor="middle" style="font-size:20px">主线竞争时拒绝硬塞</text></g>
+<g id="node-template" data-role="node" data-node-role="primary" data-node-id="template" data-group="render" data-color="violet" data-x="710.0" data-y="1869.0" data-width="380.0" data-height="142.0"><rect class="node-shape primary-shape color-violet" x="710.0" y="1869.0" width="380.0" height="142.0" rx="34"/><text class="node-title primary-title" x="900.0" y="1922.0" text-anchor="middle" style="font-size:31px">固定布局档案</text><text class="node-sub primary-sub" x="900.0" y="1965.0" text-anchor="middle" style="font-size:20px">脚本拥有几何与配色</text></g>
+<g id="node-themes" data-role="node" data-node-role="satellite" data-node-id="themes" data-group="render" data-color="violet" data-x="1087.3" data-y="2044.2" data-width="270.0" data-height="104.0"><rect class="node-shape satellite-shape color-violet" x="1087.3" y="2044.2" width="270.0" height="104.0" rx="27"/><text class="node-title satellite-title" x="1222.3" y="2078.2" text-anchor="middle" style="font-size:24px">双主题同构</text><text class="node-sub satellite-sub" x="1222.3" y="2121.2" text-anchor="middle" style="font-size:20px">只切换主题变量</text></g>
+<g id="node-profiles" data-role="node" data-node-role="satellite" data-node-id="profiles" data-group="render" data-color="violet" data-x="442.7" data-y="2044.2" data-width="270.0" data-height="104.0"><rect class="node-shape satellite-shape color-violet" x="442.7" y="2044.2" width="270.0" height="104.0" rx="27"/><text class="node-title satellite-title" x="577.7" y="2078.2" text-anchor="middle" style="font-size:24px">两种密度</text><text class="node-sub satellite-sub" x="577.7" y="2121.2" text-anchor="middle" style="font-size:20px">poster 与 mobile 分离</text></g>
+<g id="node-qa" data-role="node" data-node-role="primary" data-node-id="qa" data-group="verify" data-color="amber" data-x="140.0" data-y="1299.0" data-width="380.0" data-height="142.0"><rect class="node-shape primary-shape color-amber" x="140.0" y="1299.0" width="380.0" height="142.0" rx="34"/><text class="node-title primary-title" x="330.0" y="1352.0" text-anchor="middle" style="font-size:31px">可执行 QA</text><text class="node-sub primary-sub" x="330.0" y="1395.0" text-anchor="middle" style="font-size:20px">失败即停止而不是口头通过</text></g>
+<g id="node-collision" data-role="node" data-node-role="satellite" data-node-id="collision" data-group="verify" data-color="amber" data-x="132.4" data-y="1688.0" data-width="270.0" data-height="104.0"><rect class="node-shape satellite-shape color-amber" x="132.4" y="1688.0" width="270.0" height="104.0" rx="27"/><text class="node-title satellite-title" x="267.4" y="1722.0" text-anchor="middle" style="font-size:24px">碰撞检查</text><text class="node-sub satellite-sub" x="267.4" y="1765.0" text-anchor="middle" style="font-size:20px">节点与安全区自动验证</text></g>
+<g id="node-regression" data-role="node" data-node-role="satellite" data-node-id="regression" data-group="verify" data-color="amber" data-x="132.4" data-y="948.0" data-width="270.0" data-height="104.0"><rect class="node-shape satellite-shape color-amber" x="132.4" y="948.0" width="270.0" height="104.0" rx="27"/><text class="node-title satellite-title" x="267.4" y="982.0" text-anchor="middle" style="font-size:24px">回归样例</text><text class="node-sub satellite-sub" x="267.4" y="1025.0" text-anchor="middle" style="font-size:20px">真实失败案例持续复测</text></g>
+<g id="node-core" data-role="node" data-node-role="center" data-node-id="core" data-group="center" data-color="violet" data-x="695.0" data-y="1165.0" data-width="410.0" data-height="410.0"><circle class="node-shape center-shape" cx="900.0" cy="1370.0" r="205.0"/><text class="node-title center-title" x="900.0" y="1352.0" text-anchor="middle" style="font-size:47px">可验证知识图谱</text><text class="node-sub center-sub" x="900.0" y="1395.0" text-anchor="middle" style="font-size:20px">关系成立 · 视觉稳定 · 可编辑交付</text></g>
+</g>
+<rect class="footer-panel" x="42" y="2260" width="1716" height="298" rx="34"/><text class="footer" x="84" y="2326">稳定的知识图谱不是每次重新设计，而是让内容变化、视觉系统保持不变。</text><text class="source" x="84" y="2530">示例：build-knowledge-graph-visuals v2 方法图。</text>
 </svg>

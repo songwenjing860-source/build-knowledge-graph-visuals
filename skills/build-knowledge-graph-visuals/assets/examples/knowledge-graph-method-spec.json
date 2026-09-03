@@ -1,0 +1,65 @@
+{
+  "version": 2,
+  "profile": "poster-radial",
+  "title": "知识图谱构建方法",
+  "subtitle": "从原文证据到可验证关系，再到稳定的双主题视觉输出",
+  "reading_guide": "中心是交付目标，第一圈是四个必要阶段，外圈是各阶段的质量闸门。",
+  "footer": "稳定的知识图谱不是每次重新设计，而是让内容变化、视觉系统保持不变。",
+  "source_note": "示例：build-knowledge-graph-visuals v2 方法图。",
+  "center": {
+    "id": "core",
+    "title": "可验证知识图谱",
+    "subtitle": "关系成立 · 视觉稳定 · 可编辑交付"
+  },
+  "groups": [
+    {
+      "id": "model",
+      "label": "内容建模",
+      "color": "blue",
+      "relation": "先建立",
+      "primary": {"id": "evidence", "title": "证据化建模", "subtitle": "节点和关系都能回到原文"},
+      "satellites": [
+        {"id": "atomic", "title": "原子节点", "subtitle": "对象而不是目录标题"},
+        {"id": "verbs", "title": "关系动词", "subtitle": "能够读成完整判断"}
+      ]
+    },
+    {
+      "id": "select",
+      "label": "结构选择",
+      "color": "green",
+      "relation": "决定",
+      "primary": {"id": "gate", "title": "结构闸门", "subtitle": "图谱、流程、层级或矩阵"},
+      "satellites": [
+        {"id": "cross", "title": "交叉关系", "subtitle": "至少三条且有学习价值"},
+        {"id": "split", "title": "主动拆图", "subtitle": "主线竞争时拒绝硬塞"}
+      ]
+    },
+    {
+      "id": "render",
+      "label": "确定渲染",
+      "color": "violet",
+      "relation": "生成",
+      "primary": {"id": "template", "title": "固定布局档案", "subtitle": "脚本拥有几何与配色"},
+      "satellites": [
+        {"id": "themes", "title": "双主题同构", "subtitle": "只切换主题变量"},
+        {"id": "profiles", "title": "两种密度", "subtitle": "poster 与 mobile 分离"}
+      ]
+    },
+    {
+      "id": "verify",
+      "label": "质量验证",
+      "color": "amber",
+      "relation": "必须通过",
+      "primary": {"id": "qa", "title": "可执行 QA", "subtitle": "失败即停止而不是口头通过"},
+      "satellites": [
+        {"id": "collision", "title": "碰撞检查", "subtitle": "节点与安全区自动验证"},
+        {"id": "regression", "title": "回归样例", "subtitle": "真实失败案例持续复测"}
+      ]
+    }
+  ],
+  "relations": [
+    {"source": "evidence", "target": "gate", "label": "提供结构依据", "strength": "strong", "bend": 45},
+    {"source": "template", "target": "qa", "label": "接受验证", "strength": "strong", "bend": 45},
+    {"source": "qa", "target": "evidence", "label": "暴露问题", "strength": "weak", "bend": -90}
+  ]
+}
