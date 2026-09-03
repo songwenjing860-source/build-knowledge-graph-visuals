@@ -9,6 +9,7 @@ from pathlib import Path
 import tempfile
 
 import build_graph
+import build_story_graph
 
 
 def exercise(spec_path: Path) -> None:
@@ -54,6 +55,27 @@ def exercise_rejections(spec_path: Path) -> None:
         raise AssertionError("relation to an unknown node was not rejected")
 
 
+def exercise_story(spec_path: Path) -> None:
+    spec = json.loads(spec_path.read_text(encoding="utf-8"))
+    boxes = build_story_graph.validate_spec(spec)
+    build_story_graph.validate_routes(spec, boxes)
+    dark = build_story_graph.render(spec, boxes, "dark")
+    light = build_story_graph.render(spec, boxes, "light")
+    for rendered in (dark, light):
+        assert rendered.count('data-role="node"') == len(boxes)
+        assert 'data-profile="story-loop"' in rendered
+        assert 'data-layout-version="3"' in rendered
+
+    overflow = deepcopy(spec)
+    overflow["nodes"][0]["title"] = "超" * 16
+    try:
+        build_story_graph.validate_spec(overflow)
+    except ValueError as exc:
+        assert "overflows" in str(exc)
+    else:
+        raise AssertionError("story-loop accepted overflowing copy")
+
+
 def main() -> int:
     skill = Path(__file__).resolve().parent.parent
     examples = skill / "assets" / "examples"
@@ -63,6 +85,9 @@ def main() -> int:
         print(f"PASS: {fixture.name}")
     exercise_rejections(fixtures[1])
     print("PASS: invalid specs are rejected")
+    story_fixture = examples / "fde-story-loop-spec.json"
+    exercise_story(story_fixture)
+    print(f"PASS: {story_fixture.name}")
     return 0
 
 

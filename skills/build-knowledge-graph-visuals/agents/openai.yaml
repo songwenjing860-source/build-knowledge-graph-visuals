@@ -1,6 +1,6 @@
 interface:
   display_name: "知识图谱双主题"
-  short_description: "从课程内容构建手机友好、可审查的黑白双主题知识图谱"
+  short_description: "从课程内容构建可审查的径向或叙事闭环双主题知识图谱"
   default_prompt: "Use $build-knowledge-graph-visuals to 从这些课程文章提炼并绘制一张竖版知识图谱，同时输出黑底和白底高清版本。"
 policy:
   allow_implicit_invocation: true

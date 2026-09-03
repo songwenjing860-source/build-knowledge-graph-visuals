@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="3000" viewBox="0 0 1080 3000" data-layout-version="3" data-profile="story-loop" data-theme="light">
+<defs>
+<linearGradient id="page" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8fafc"/><stop offset="1" stop-color="#ffffff"/></linearGradient>
+<linearGradient id="core-fill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#31596b"/><stop offset="1" stop-color="#164e63"/></linearGradient>
+<filter id="shadow" x="-25%" y="-25%" width="150%" height="160%"><feDropShadow dx="0" dy="10" stdDeviation="14" flood-opacity=".16"/></filter>
+<linearGradient id="mechanism" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#a5f3fc"/><stop offset="1" stop-color="#22d3ee"/></linearGradient>
+<linearGradient id="problem" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fecdd3"/><stop offset="1" stop-color="#fb7185"/></linearGradient>
+<linearGradient id="constraint" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fde68a"/><stop offset="1" stop-color="#f59e0b"/></linearGradient>
+<linearGradient id="validation" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d9f99d"/><stop offset="1" stop-color="#84cc16"/></linearGradient>
+<linearGradient id="action" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#bbf7d0"/><stop offset="1" stop-color="#34d399"/></linearGradient>
+<linearGradient id="boundary" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ddd6fe"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+<marker id="arrow-strong" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#0891b2"/></marker>
+<marker id="arrow-constraint" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#d97706"/></marker>
+<marker id="arrow-weak" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,0 L9,5 L0,10 Z" fill="#94a3b8"/></marker>
+</defs>
+<style>
+    text{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Noto Sans CJK SC','Microsoft YaHei',sans-serif}
+    .title{fill:#0f172a;font-size:58px;font-weight:900} .subtitle{fill:#334155;font-size:30px;font-weight:700}
+    .guide{fill:#64748b;font-size:24px} .legend{fill:#334155;font-size:23px;font-weight:750}
+    .ring{fill:none;stroke:#cbd5e1;stroke-width:2;opacity:.62} .edge{fill:none;stroke-linecap:round;stroke-linejoin:round}
+    .edge.strong{stroke:#0891b2;stroke-width:3.6} .edge.constraint{stroke:#d97706;stroke-width:3.6}
+    .edge.weak{stroke:#94a3b8;stroke-width:2.4;stroke-dasharray:9 12;opacity:.7}
+    .edge-label-bg{fill:#ffffff;stroke:#cbd5e1;stroke-width:1.5} .edge-label{fill:#0f172a;font-size:22px;font-weight:800}
+    .node-shape{stroke:#fff;stroke-width:2.2;filter:url(#shadow)}
+    .type-mechanism{fill:url(#mechanism)} .type-problem{fill:url(#problem)} .type-constraint{fill:url(#constraint)}
+    .type-validation{fill:url(#validation)} .type-action{fill:url(#action)} .type-boundary{fill:url(#boundary)}
+    .node-title{fill:#0f172a;font-weight:900} .node-sub{fill:#334155;font-weight:600}
+    .core-outer{fill:#6ee7f9;stroke:#e0f2fe;stroke-width:3;filter:url(#shadow)} .core-inner{fill:url(#core-fill);stroke:#22d3ee;stroke-width:3}
+    .core-text{fill:#fff} .footer{fill:#334155;font-size:24px;font-weight:800} .source{fill:#64748b;font-size:20px}
+    </style>
+<rect width="100%" height="100%" fill="url(#page)"/>
+<text class="title" x="28" y="82">FDE：从现场到产品复利</text>
+<text class="subtitle" x="28" y="132">认知篇 01—04 · 角色内核、时代变量与中国约束</text>
+<text class="guide" x="28" y="178">上方解释为何现在；中部沿顺时针闭环；下方辨真伪、看约束与成立条件。</text>
+<rect x="28" y="220" width="1024" height="125" rx="28" fill="#ffffff" stroke="#cbd5e1"/>
+<circle cx="48" cy="275" r="11" fill="#fb7185"/><text class="legend" x="69" y="283">问题</text>
+<circle cx="186" cy="275" r="11" fill="#22d3ee"/><text class="legend" x="207" y="283">机制</text>
+<circle cx="324" cy="275" r="11" fill="#34d399"/><text class="legend" x="345" y="283">行动</text>
+<circle cx="462" cy="275" r="11" fill="#a78bfa"/><text class="legend" x="483" y="283">边界</text>
+<circle cx="600" cy="275" r="11" fill="#84cc16"/><text class="legend" x="621" y="283">验证</text>
+<circle cx="738" cy="275" r="11" fill="#f59e0b"/><text class="legend" x="759" y="283">约束</text>
+<path d="M48 320h42" stroke="#0891b2" stroke-width="3" marker-end="url(#arrow-strong)"/><text class="legend" x="105" y="328">强关系</text>
+<path d="M223 320h42" stroke="#d97706" stroke-width="3" marker-end="url(#arrow-constraint)"/><text class="legend" x="280" y="328">约束关系</text>
+<path d="M398 320h42" stroke="#94a3b8" stroke-width="3" stroke-dasharray="8 10"/><text class="legend" x="455" y="328">弱关联</text>
+<ellipse class="ring" cx="540" cy="1490" rx="510" ry="930"/><ellipse class="ring" cx="540" cy="1490" rx="385" ry="760"/><ellipse class="ring" cx="540" cy="1490" rx="255" ry="575"/>
+<g id="edges">
+<path class="edge constraint" data-source="ai-gap" data-target="embed" d="M 255.0 560.0 Q 255.0 630.0 255.0 700.0" marker-end="url(#arrow-constraint)"/>
+<path class="edge strong" data-source="ai-leverage" data-target="define" d="M 825.0 560.0 Q 825.0 630.0 825.0 700.0" marker-end="url(#arrow-strong)"/>
+<path class="edge strong" data-source="embed" data-target="define" d="M 465.0 790.0 Q 540.0 790.0 615.0 790.0" marker-end="url(#arrow-strong)"/>
+<path class="edge strong" data-source="define" data-target="production" d="M 825.0 880.0 Q 870.0 1085.0 825.0 1290.0" marker-end="url(#arrow-strong)"/>
+<path class="edge constraint" data-source="production" data-target="deliver" d="M 825.0 1450.0 Q 825.0 1502.5 825.0 1555.0" marker-end="url(#arrow-constraint)"/>
+<path class="edge strong" data-source="deliver" data-target="productize" d="M 744.3 1715.0 Q 683.8 1775.0 623.2 1835.0" marker-end="url(#arrow-strong)"/>
+<path class="edge strong" data-source="reuse" data-target="productize" d="M 335.7 1715.0 Q 396.2 1775.0 456.8 1835.0" marker-end="url(#arrow-strong)"/>
+<path class="edge constraint" data-source="productize" data-target="hard-test" d="M 453.7 2000.0 Q 398.8 2052.5 343.9 2105.0" marker-end="url(#arrow-constraint)"/>
+<path class="edge constraint" data-source="hard-test" data-target="china-mismatch" d="M 255.0 2275.0 Q 255.0 2332.5 255.0 2390.0" marker-end="url(#arrow-constraint)"/>
+<path class="edge weak" data-source="outsourcing" data-target="china-six" d="M 825.0 2275.0 Q 825.0 2332.5 825.0 2390.0"/>
+<path class="edge constraint" data-source="china-mismatch" data-target="conditions" d="M 342.3 2560.0 Q 398.8 2615.0 455.3 2670.0" marker-end="url(#arrow-constraint)"/>
+<path class="edge constraint" data-source="china-six" data-target="conditions" d="M 737.7 2560.0 Q 681.2 2615.0 624.7 2670.0" marker-end="url(#arrow-constraint)"/>
+<path class="edge strong" data-source="role-end" data-target="core" d="M 342.7 1290.0 Q 401.3 1277.2 419.4 1220.0" marker-end="url(#arrow-strong)"/>
+<path class="edge constraint" data-source="conditions" data-target="core" d="M 540.0 2670.0 L 20.0 2670.0 L 20.0 1220.0 L 540.0 1220.0" marker-end="url(#arrow-constraint)"/>
+<path class="edge weak" data-source="ai-leverage" data-target="core" d="M 786.9 560.0 L 1060.0 560.0 L 1060.0 1000.0 L 589.4 1000.0"/>
+<path class="edge weak" data-source="ai-gap" data-target="core" d="M 293.1 560.0 L 20.0 560.0 L 20.0 1000.0 L 490.6 1000.0"/>
+</g>
+<g id="nodes">
+<g data-role="node" data-node-id="core" data-slot="center" data-type="center"><rect class="core-outer" x="300" y="1000" width="480" height="220" rx="92"/><rect class="core-inner" x="317" y="1017" width="446" height="186" rx="76"/><text class="node-title core-text" x="540.0" y="1074.0" text-anchor="middle" style="font-size:43px">FDE 产品探索闭环</text><text class="node-sub core-text" x="540.0" y="1122.0" text-anchor="middle" style="font-size:30px">嵌入现场 · 交付结果</text><text class="node-sub core-text" x="540.0" y="1160.0" text-anchor="middle" style="font-size:30px">沉淀产品 · 形成复利</text></g>
+<g data-role="node" data-node-id="ai-gap" data-slot="premise-left" data-type="problem"><rect class="node-shape type-problem" x="45" y="390" width="420" height="170" rx="30"/><text class="node-title " x="255.0" y="439.0" text-anchor="middle" style="font-size:35px">AI 落地鸿沟</text><text class="node-sub " x="255.0" y="487.0" text-anchor="middle" style="font-size:27px">模型能力不等于真</text><text class="node-sub " x="255.0" y="522.0" text-anchor="middle" style="font-size:27px">实流程中的业务价值</text></g>
+<g data-role="node" data-node-id="ai-leverage" data-slot="premise-right" data-type="mechanism"><rect class="node-shape type-mechanism" x="615" y="390" width="420" height="170" rx="30"/><text class="node-title " x="825.0" y="439.0" text-anchor="middle" style="font-size:35px">AI 个体增益</text><text class="node-sub " x="825.0" y="487.0" text-anchor="middle" style="font-size:27px">一人开始贯通需求</text><text class="node-sub " x="825.0" y="522.0" text-anchor="middle" style="font-size:27px">代码与产品</text></g>
+<g data-role="node" data-node-id="embed" data-slot="trigger-left" data-type="mechanism"><rect class="node-shape type-mechanism" x="45" y="700" width="420" height="180" rx="30"/><text class="node-title " x="255.0" y="754.0" text-anchor="middle" style="font-size:35px">嵌入真实工作流</text><text class="node-sub " x="255.0" y="802.0" text-anchor="middle" style="font-size:27px">看流程、数据与权限</text><text class="node-sub " x="255.0" y="837.0" text-anchor="middle" style="font-size:27px">补上文档外隐性规则</text></g>
+<g data-role="node" data-node-id="define" data-slot="trigger-right" data-type="action"><rect class="node-shape type-action" x="615" y="700" width="420" height="180" rx="30"/><text class="node-title " x="825.0" y="754.0" text-anchor="middle" style="font-size:35px">主动定义真问题</text><text class="node-sub " x="825.0" y="802.0" text-anchor="middle" style="font-size:27px">判断做什么</text><text class="node-sub " x="825.0" y="837.0" text-anchor="middle" style="font-size:27px">以及值不值得做</text></g>
+<g data-role="node" data-node-id="role-end" data-slot="role-left" data-type="boundary"><rect class="node-shape type-boundary" x="45" y="1290" width="420" height="160" rx="30"/><text class="node-title " x="255.0" y="1334.0" text-anchor="middle" style="font-size:35px">传统角色的终点</text><text class="node-sub " x="255.0" y="1382.0" text-anchor="middle" style="font-size:27px">咨询交认知</text><text class="node-sub " x="255.0" y="1417.0" text-anchor="middle" style="font-size:27px">外包交工时｜实施交上线</text></g>
+<g data-role="node" data-node-id="production" data-slot="role-right" data-type="action"><rect class="node-shape type-action" x="615" y="1290" width="420" height="160" rx="30"/><text class="node-title " x="825.0" y="1334.0" text-anchor="middle" style="font-size:35px">写进生产系统</text><text class="node-sub " x="825.0" y="1382.0" text-anchor="middle" style="font-size:27px">构建产品尚不具备的能力</text><text class="node-sub " x="825.0" y="1417.0" text-anchor="middle" style="font-size:27px">不是配置演示</text></g>
+<g data-role="node" data-node-id="reuse" data-slot="outcome-left" data-type="validation"><rect class="node-shape type-validation" x="45" y="1555" width="420" height="160" rx="30"/><text class="node-title " x="255.0" y="1599.0" text-anchor="middle" style="font-size:35px">跨客户复用</text><text class="node-sub " x="255.0" y="1647.0" text-anchor="middle" style="font-size:27px">项目越做越轻</text><text class="node-sub " x="255.0" y="1682.0" text-anchor="middle" style="font-size:27px">同类问题不再从零开始</text></g>
+<g data-role="node" data-node-id="deliver" data-slot="outcome-right" data-type="constraint"><rect class="node-shape type-constraint" x="615" y="1555" width="420" height="160" rx="30"/><text class="node-title " x="825.0" y="1599.0" text-anchor="middle" style="font-size:35px">交付业务结果</text><text class="node-sub " x="825.0" y="1647.0" text-anchor="middle" style="font-size:27px">用可衡量改善验收</text><text class="node-sub " x="825.0" y="1682.0" text-anchor="middle" style="font-size:27px">而非工时与代码量</text></g>
+<g data-role="node" data-node-id="productize" data-slot="synthesis-center" data-type="mechanism"><rect class="node-shape type-mechanism" x="270" y="1835" width="540" height="165" rx="30"/><text class="node-title " x="540.0" y="1881.5" text-anchor="middle" style="font-size:35px">认知沉淀进产品</text><text class="node-sub " x="540.0" y="1929.5" text-anchor="middle" style="font-size:27px">把单客户验证的经验</text><text class="node-sub " x="540.0" y="1964.5" text-anchor="middle" style="font-size:27px">转成所有客户可用的能力</text></g>
+<g data-role="node" data-node-id="hard-test" data-slot="test-left" data-type="validation"><rect class="node-shape type-validation" x="45" y="2105" width="420" height="170" rx="30"/><text class="node-title " x="255.0" y="2154.0" text-anchor="middle" style="font-size:35px">真假 FDE 硬检验</text><text class="node-sub " x="255.0" y="2202.0" text-anchor="middle" style="font-size:27px">经验进产品了吗？</text><text class="node-sub " x="255.0" y="2237.0" text-anchor="middle" style="font-size:27px">第二个客户更容易了吗？</text></g>
+<g data-role="node" data-node-id="outsourcing" data-slot="test-right" data-type="problem"><rect class="node-shape type-problem" x="615" y="2105" width="420" height="170" rx="30"/><text class="node-title " x="825.0" y="2154.0" text-anchor="middle" style="font-size:35px">高效高级外包</text><text class="node-sub " x="825.0" y="2202.0" text-anchor="middle" style="font-size:27px">AI 加快单客定制</text><text class="node-sub " x="825.0" y="2237.0" text-anchor="middle" style="font-size:27px">却未改变交付性质</text></g>
+<g data-role="node" data-node-id="china-mismatch" data-slot="context-left" data-type="constraint"><rect class="node-shape type-constraint" x="45" y="2390" width="420" height="170" rx="30"/><text class="node-title " x="255.0" y="2439.0" text-anchor="middle" style="font-size:35px">中国 2B 结构错配</text><text class="node-sub " x="255.0" y="2487.0" text-anchor="middle" style="font-size:27px">标准软件撞上非标准流程</text><text class="node-sub " x="255.0" y="2522.0" text-anchor="middle" style="font-size:27px">风险责任同步错配</text></g>
+<g data-role="node" data-node-id="china-six" data-slot="context-right" data-type="boundary"><rect class="node-shape type-boundary" x="615" y="2390" width="420" height="170" rx="30"/><text class="node-title " x="825.0" y="2439.0" text-anchor="middle" style="font-size:35px">中国落地六道坎</text><text class="node-sub " x="825.0" y="2487.0" text-anchor="middle" style="font-size:27px">利润｜人才｜晋升</text><text class="node-sub " x="825.0" y="2522.0" text-anchor="middle" style="font-size:27px">抽象｜组织｜市场</text></g>
+<g data-role="node" data-node-id="conditions" data-slot="condition-center" data-type="constraint"><rect class="node-shape type-constraint" x="270" y="2670" width="540" height="165" rx="30"/><text class="node-title " x="540.0" y="2716.5" text-anchor="middle" style="font-size:35px">模式成立条件</text><text class="node-sub " x="540.0" y="2764.5" text-anchor="middle" style="font-size:27px">高价值场景｜效果付费</text><text class="node-sub " x="540.0" y="2799.5" text-anchor="middle" style="font-size:27px">充分授权｜抽象复用</text></g>
+</g>
+<g id="edge-labels">
+<g data-role="edge-label" data-edge-index="0"><rect class="edge-label-bg" x="197.0" y="610.0" width="116.0" height="40" rx="13"/><text class="edge-label" x="255.0" y="637.0" text-anchor="middle">点燃需求</text></g>
+<g data-role="edge-label" data-edge-index="1"><rect class="edge-label-bg" x="767.0" y="610.0" width="116.0" height="40" rx="13"/><text class="edge-label" x="825.0" y="637.0" text-anchor="middle">解锁闭环</text></g>
+<g data-role="edge-label" data-edge-index="2"><rect class="edge-label-bg" x="499.0" y="770.0" width="82.0" height="40" rx="13"/><text class="edge-label" x="540.0" y="797.0" text-anchor="middle">暴露</text></g>
+<g data-role="edge-label" data-edge-index="3"><rect class="edge-label-bg" x="805.9" y="1097.8" width="82.0" height="40" rx="13"/><text class="edge-label" x="846.9" y="1124.8" text-anchor="middle">指导</text></g>
+<g data-role="edge-label" data-edge-index="4"><rect class="edge-label-bg" x="784.0" y="1480.4" width="82.0" height="40" rx="13"/><text class="edge-label" x="825.0" y="1507.4" text-anchor="middle">兑现</text></g>
+<g data-role="edge-label" data-edge-index="5"><rect class="edge-label-bg" x="642.8" y="1755.0" width="82.0" height="40" rx="13"/><text class="edge-label" x="683.8" y="1782.0" text-anchor="middle">验证</text></g>
+<g data-role="edge-label" data-edge-index="6"><rect class="edge-label-bg" x="355.2" y="1755.0" width="82.0" height="40" rx="13"/><text class="edge-label" x="396.2" y="1782.0" text-anchor="middle">形成</text></g>
+<g data-role="edge-label" data-edge-index="7"><rect class="edge-label-bg" x="314.4" y="2036.7" width="160.0" height="40" rx="13"/><text class="edge-label" x="394.4" y="2063.7" text-anchor="middle">决定能否通过</text></g>
+<g data-role="edge-label" data-edge-index="8"><rect class="edge-label-bg" x="175.0" y="2312.5" width="160.0" height="40" rx="13"/><text class="edge-label" x="255.0" y="2339.5" text-anchor="middle">要求贴近现场</text></g>
+<g data-role="edge-label" data-edge-index="9"><rect class="edge-label-bg" x="778.0" y="2312.5" width="94.0" height="40" rx="13"/><text class="edge-label" x="825.0" y="2339.5" text-anchor="middle">未通过</text></g>
+<g data-role="edge-label" data-edge-index="10"><rect class="edge-label-bg" x="352.1" y="2589.5" width="82.0" height="40" rx="13"/><text class="edge-label" x="393.1" y="2616.5" text-anchor="middle">约束</text></g>
+<g data-role="edge-label" data-edge-index="11"><rect class="edge-label-bg" x="617.6" y="2600.5" width="116.0" height="40" rx="13"/><text class="edge-label" x="675.6" y="2627.5" text-anchor="middle">支撑成立</text></g>
+<g data-role="edge-label" data-edge-index="12"><rect class="edge-label-bg" x="332.8" y="1234.6" width="138.0" height="40" rx="13"/><text class="edge-label" x="401.8" y="1261.6" text-anchor="middle">由责任区分</text></g>
+<g data-role="edge-label" data-edge-index="13"><rect class="edge-label-bg" x="83.6" y="1200.0" width="116.0" height="40" rx="13"/><text class="edge-label" x="141.6" y="1227.0" text-anchor="middle">成立条件</text></g>
+<g data-role="edge-label" data-edge-index="14"><rect class="edge-label-bg" x="862.8" y="980.0" width="116.0" height="40" rx="13"/><text class="edge-label" x="920.8" y="1007.0" text-anchor="middle">放大个体</text></g>
+<g data-role="edge-label" data-edge-index="15"><rect class="edge-label-bg" x="101.2" y="980.0" width="116.0" height="40" rx="13"/><text class="edge-label" x="159.2" y="1007.0" text-anchor="middle">暴露鸿沟</text></g>
+</g>
+<text class="footer" x="44" y="2915">FDE 的稀缺性，不在驻场，而在把不可规模化的探索变成产品复利。</text>
+<text class="source" x="44" y="2960">来源：用户提供的 FDE 认知篇 01—04；推断关系已在规格中标明。</text>
+</svg>
