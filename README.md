@@ -4,15 +4,25 @@
 
 它拒绝把“不同颜色的框 + 大量装饰连线”冒充知识图谱。核心顺序是：先建模，再布局；先验证，再公开。
 
-| 黑底示例 | 白底示例 |
-|---|---|
-| ![Dark knowledge graph](skills/build-knowledge-graph-visuals/assets/examples/knowledge-graph-method-dark.png) | ![Light knowledge graph](skills/build-knowledge-graph-visuals/assets/examples/knowledge-graph-method-light.png) |
+以下是用户认可的课程图谱效果，也是 Skill 的首选视觉参考：中心渐变圆、环绕模块、外围知识节点、明确关系和底部总结框。
 
-高密度叙事闭环示例：
-
-| 黑底 Story Loop | 白底 Story Loop |
+| 意图识别 · 黑底 | 意图识别 · 白底 |
 |---|---|
-| ![Dark story loop](skills/build-knowledge-graph-visuals/assets/examples/fde-story-loop-dark.png) | ![Light story loop](skills/build-knowledge-graph-visuals/assets/examples/fde-story-loop-light.png) |
+| ![意图识别黑底](skills/build-knowledge-graph-visuals/assets/examples/course-reference/intent-dark.jpg) | ![意图识别白底](skills/build-knowledge-graph-visuals/assets/examples/course-reference/intent-light.png) |
+
+| 规划执行 · 黑底 | 规划执行 · 白底 |
+|---|---|
+| ![规划执行黑底](skills/build-knowledge-graph-visuals/assets/examples/course-reference/planning-dark.jpg) | ![规划执行白底](skills/build-knowledge-graph-visuals/assets/examples/course-reference/planning-light.png) |
+
+| 上下文管理 · 黑底 | 上下文管理 · 白底 |
+|---|---|
+| ![上下文管理黑底](skills/build-knowledge-graph-visuals/assets/examples/course-reference/context-dark.png) | ![上下文管理白底](skills/build-knowledge-graph-visuals/assets/examples/course-reference/context-light.png) |
+
+跨模块反馈关系示例：
+
+![评估与可观测性白底](skills/build-knowledge-graph-visuals/assets/examples/course-reference/evaluation-light.png)
+
+参考文件及复用规则见 [课程参考样式](skills/build-knowledge-graph-visuals/references/course-reference-style.md)。附规划执行、上下文管理两份白底 SVG。历史参考图用于视觉校准；新内容仍须重新建模和检查。现有径向脚本容量小于六模块密集参考，复现该密度时需要扩展确定性模板。旧方法论和 Story Loop 示例保留为回归样例与可选风格。
 
 ## 能做什么
 

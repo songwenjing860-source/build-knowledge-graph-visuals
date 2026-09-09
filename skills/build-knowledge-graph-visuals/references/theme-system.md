@@ -13,7 +13,7 @@
 
 ## 1. 选择严格布局档案
 
-先按内容结构选择档案，不再默认把所有知识图谱做成径向图。所有档案都由确定性脚本生成。
+课程章节默认对齐 `course-reference-style.md` 中用户认可的径向成品。其中心圆、渐变模块、浅色卫星节点与总结框是首选视觉语言。下列档案描述现有脚本能力；容量不足时按该参考扩展径向模板，不自动改成双列叙事图。
 
 ### `story-loop`：高密度叙事闭环
 
@@ -178,6 +178,6 @@ v2 示例：
 - `assets/examples/knowledge-graph-method-light.svg`
 - `assets/examples/knowledge-graph-method-light.png`
 
-示例属于 `poster-radial`，既校准视觉语言，也校准几何结构。mobile 使用相同的中心辐射语法，但节点更少、字号更大。
+上述方法论示例属于 `poster-radial` 技术回归 fixture。首选成品效果以 `assets/examples/course-reference/` 为准。mobile 使用相同的中心辐射语法，但节点更少、字号更大。
 
 `story-loop` 的可执行示例为 `assets/examples/fde-story-loop-spec.json`。其六类配色、双列节奏、中心胶囊与关系 rail 是模板的一部分。

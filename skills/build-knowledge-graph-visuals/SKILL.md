@@ -19,14 +19,15 @@ description: 从中文课程文章、技术专栏、访谈材料、文档或章�
 
 ## 按需读取
 
+- 课程章节图默认先读 `references/course-reference-style.md`，实际查看其中一组黑白成品；这是首选视觉标杆。
 - 建模前读 `references/modeling-method.md`。
 - 径向图读 `references/spec-v2.md`。
 - 高密度双列叙事图读 `references/spec-v3-story-loop.md`。
 - 选择版型和配色时读 `references/theme-system.md`。
 - 交付前读 `references/adversarial-review.md` 与 `references/qa-checklist.md`。
 - 维护渲染器、排查校验或扩展 profile 时才读 `references/implementation-notes.md`；普通生成不要加载。
-- 径向样例：`assets/examples/knowledge-graph-method-spec.json`。
-- 叙事闭环样例：`assets/examples/fde-story-loop-spec.json`。
+- 技术回归样例：`assets/examples/knowledge-graph-method-spec.json`；用于验证渲染器，不代表首选成品密度。
+- 可选叙事闭环样例：`assets/examples/fde-story-loop-spec.json`；仅用于明确适合双列叙事的任务。
 
 ## 工作流
 
@@ -39,11 +40,12 @@ description: 从中文课程文章、技术专栏、访谈材料、文档或章�
 
 ### 2. 选择能表达内容的 profile
 
-- `story-loop`：存在“为何现在 → 怎么做 → 交付什么 → 如何验证 → 哪些条件成立”的主线，同时有反馈、反例或回路。中文课程长图优先考虑。
+- 用户认可的课程参考风格：中心渐变圆、约六个环绕核心模块、外围浅色知识节点、跨模块关系及底部总结框。课程章节复习图默认采用此空间语法，见 `references/course-reference-style.md`。这是视觉目标，不是现成的 CLI profile 名称。
+- `story-loop`：存在“为何现在 → 怎么做 → 交付什么 → 如何验证 → 哪些条件成立”的主线，且用户需要按顺序阅读时采用。
 - `poster-radial`：没有单一阅读顺序，重点是中心概念与多个对等模块的关系。
 - `mobile-radial`：用户明确要求手机无需缩放；必须主动减少节点和交叉关系。
 
-不要因为参考图“有中心节点”就误判为径向图。先看读者视线是在绕中心比较，还是沿上中下推进。
+用户明确选择参考图时，以参考图的空间语法为准。当前径向脚本的节点容量不足以复现六模块课程图时，扩展结构化径向模板并验证；不要自动换成双列图或删掉必要知识点。
 
 ### 3. 建立证据化图谱
 
@@ -92,7 +94,7 @@ python <skill-dir>/scripts/make_mobile_previews.py <light.svg> --out-dir <review
 
 ### 6. 对抗式审查
 
-执行 `references/adversarial-review.md`，记录“问题 → 判断 → 修正”。至少删除或降级一个候选节点或关系；零修改通常意味着审查流于形式。
+执行 `references/adversarial-review.md`，记录“问题 → 判断 → 修正”。依据具体问题删除或降级候选节点与关系；未发现问题时如实记录，不能为了凑审查修改而删除有效知识。
 
 ## 扩展模板
 

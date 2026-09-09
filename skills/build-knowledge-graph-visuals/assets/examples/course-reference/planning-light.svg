@@ -1,0 +1,377 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="3000" viewBox="0 0 1800 3000">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="46%" r="76%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="46%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </radialGradient>
+    <linearGradient id="coreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb7185"/>
+      <stop offset="48%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#dbeafe"/>
+      <stop offset="100%" stop-color="#60a5fa"/>
+    </linearGradient>
+    <linearGradient id="greenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#dcfce7"/>
+      <stop offset="100%" stop-color="#34d399"/>
+    </linearGradient>
+    <linearGradient id="cyanGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#cffafe"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fef3c7"/>
+      <stop offset="100%" stop-color="#f59e0b"/>
+    </linearGradient>
+    <linearGradient id="violetGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ede9fe"/>
+      <stop offset="100%" stop-color="#a78bfa"/>
+    </linearGradient>
+    <linearGradient id="pinkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fce7f3"/>
+      <stop offset="100%" stop-color="#f472b6"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="10" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="0 0 0 0 0.30  0 0 0 0 0.58  0 0 0 0 1.00  0 0 0 .58 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softShadow" x="-35%" y="-35%" width="170%" height="170%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#64748b" flood-opacity=".16"/>
+    </filter>
+    <marker id="arrowCyan" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2,2 L12,7 L2,12 Z" fill="#0891b2"/>
+    </marker>
+    <marker id="arrowGold" markerWidth="14" markerHeight="14" refX="11" refY="7" orient="auto">
+      <path d="M2,2 L12,7 L2,12 Z" fill="#d97706"/>
+    </marker>
+    <style>
+      .title { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 68px; font-weight: 950; fill: #0f172a; letter-spacing: 0; }
+      .subtitle { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 30px; fill: #334155; }
+      .caption { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 23px; fill: #64748b; }
+      .coreText { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 43px; font-weight: 950; fill: #ffffff; }
+      .coreSub { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 21px; fill: #e0f2fe; }
+      .nodeTitle { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 29px; font-weight: 900; fill: #111827; }
+      .nodeSub { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 20px; fill: #334155; }
+      .miniTitle { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 22px; font-weight: 850; fill: #0f172a; }
+      .miniSub { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 17px; fill: #475569; }
+      .edgeLabel { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 18px; font-weight: 800; fill: #334155; }
+      .edgeLabelBg { fill: #ffffff; fill-opacity: .96; stroke: #cbd5e1; stroke-width: 1; }
+      .legend { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 21px; fill: #334155; }
+      .smallWhite { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Noto Sans CJK SC", "Microsoft YaHei", sans-serif; font-size: 23px; fill: #334155; }
+      .edge { fill: none; stroke: #0891b2; stroke-width: 3.2; stroke-opacity: .62; marker-end: url(#arrowCyan); }
+      .edgeGold { fill: none; stroke: #d97706; stroke-width: 3.2; stroke-opacity: .68; marker-end: url(#arrowGold); }
+      .edgeSoft { fill: none; stroke: #64748b; stroke-width: 2.2; stroke-opacity: .42; stroke-dasharray: 8 10; }
+      .ring { fill: none; stroke: #94a3b8; stroke-opacity: .28; stroke-width: 2; }
+      .node { filter: url(#softShadow); stroke: rgba(255,255,255,.68); stroke-width: 2; }
+    </style>
+  </defs>
+
+  <rect width="1800" height="3000" fill="url(#bg)"/>
+  <circle class="ring" cx="900" cy="1500" r="420"/>
+  <circle class="ring" cx="900" cy="1500" r="690"/>
+  <circle class="ring" cx="900" cy="1500" r="930"/>
+
+  <text class="title" x="100" y="126">Agent 规划与执行知识图谱</text>
+  <text class="subtitle" x="104" y="176">Agent 面试课 · 第二章 · Plan / Replan / TAO</text>
+  <text class="caption" x="104" y="220">读图方式：中心是动态执行闭环，第一圈是六个核心模块，外圈是状态、机制、恢复策略与面试表达。</text>
+
+  <!-- Legend -->
+  <g transform="translate(100,270)">
+    <rect x="0" y="0" width="1600" height="84" rx="28" fill="#ffffff" opacity=".98" stroke="#cbd5e1"/>
+    <circle cx="44" cy="42" r="15" fill="url(#blueGrad)"/>
+    <text class="legend" x="70" y="50">Plan</text>
+    <circle cx="205" cy="42" r="15" fill="url(#greenGrad)"/>
+    <text class="legend" x="231" y="50">TAO</text>
+    <circle cx="366" cy="42" r="15" fill="url(#cyanGrad)"/>
+    <text class="legend" x="392" y="50">Action</text>
+    <circle cx="557" cy="42" r="15" fill="url(#amberGrad)"/>
+    <text class="legend" x="583" y="50">Replan</text>
+    <circle cx="770" cy="42" r="15" fill="url(#violetGrad)"/>
+    <text class="legend" x="796" y="50">状态</text>
+    <circle cx="935" cy="42" r="15" fill="url(#pinkGrad)"/>
+    <text class="legend" x="961" y="50">面试场景</text>
+    <path d="M1210 42 H1295" class="edge"/>
+    <text class="legend" x="1320" y="50">强关系</text>
+    <path d="M1460 42 H1535" class="edgeSoft"/>
+    <text class="legend" x="1550" y="50">依赖</text>
+  </g>
+
+  <!-- Primary and cross edges -->
+  <path class="edgeGold" d="M900 1270 C900 1080, 900 900, 900 740"/>
+  <path class="edge" d="M1060 1360 C1175 1275, 1250 1170, 1328 1060"/>
+  <path class="edge" d="M1085 1530 C1205 1548, 1295 1590, 1380 1655"/>
+  <path class="edgeGold" d="M900 1730 C900 1910, 900 2070, 900 2200"/>
+  <path class="edge" d="M715 1580 C585 1620, 500 1645, 405 1655"/>
+  <path class="edge" d="M720 1360 C585 1265, 500 1150, 405 1060"/>
+
+  <path class="edgeSoft" d="M900 740 C1110 790, 1220 910, 1328 1060"/>
+  <path class="edgeSoft" d="M1328 1060 C1435 1250, 1450 1460, 1380 1580"/>
+  <path class="edgeSoft" d="M1380 1730 C1260 1940, 1100 2115, 900 2200"/>
+  <path class="edgeSoft" d="M405 1730 C530 1960, 675 2140, 900 2200"/>
+  <path class="edgeSoft" d="M405 1060 C585 910, 720 820, 900 740"/>
+  <path class="edgeSoft" d="M405 1060 C330 1240, 330 1460, 405 1580"/>
+
+  <!-- Edge labels -->
+  <g>
+    <rect class="edgeLabelBg" x="920" y="975" width="118" height="40" rx="14"/>
+    <text class="edgeLabel" x="936" y="1002">约束方向</text>
+  </g>
+  <g>
+    <rect class="edgeLabelBg" x="1130" y="1190" width="118" height="40" rx="14"/>
+    <text class="edgeLabel" x="1146" y="1217">逐轮推进</text>
+  </g>
+  <g>
+    <rect class="edgeLabelBg" x="1190" y="1515" width="118" height="40" rx="14"/>
+    <text class="edgeLabel" x="1206" y="1542">选择动作</text>
+  </g>
+  <g>
+    <rect class="edgeLabelBg" x="850" y="2120" width="104" height="40" rx="14"/>
+    <text class="edgeLabel" x="866" y="2147">异常恢复</text>
+  </g>
+  <g>
+    <rect class="edgeLabelBg" x="575" y="1495" width="104" height="40" rx="14"/>
+    <text class="edgeLabel" x="591" y="1522">读取状态</text>
+  </g>
+  <g>
+    <rect class="edgeLabelBg" x="445" y="1310" width="104" height="40" rx="14"/>
+    <text class="edgeLabel" x="461" y="1337">承载方案</text>
+  </g>
+
+  <!-- Center -->
+  <g filter="url(#glow)">
+    <circle cx="900" cy="1500" r="220" fill="url(#coreGrad)" stroke="#ffffff" stroke-opacity=".82" stroke-width="4"/>
+    <circle cx="900" cy="1500" r="184" fill="#111827" opacity=".30"/>
+  </g>
+  <text class="coreText" x="749" y="1485">Agent 动态执行</text>
+  <text class="coreSub" x="738" y="1535">在不确定环境中持续逼近目标</text>
+  <text class="coreSub" x="748" y="1570">发现偏差 · 定位根因 · 恢复执行</text>
+
+  <!-- First-ring nodes -->
+  <g>
+    <rect class="node" x="705" y="595" width="390" height="145" rx="38" fill="url(#blueGrad)"/>
+    <text class="nodeTitle" x="795" y="655">Plan / G4C</text>
+    <text class="nodeSub" x="760" y="699">把不确定性变成可检查计划</text>
+  </g>
+  <g>
+    <rect class="node" x="1195" y="910" width="410" height="150" rx="38" fill="url(#greenGrad)"/>
+    <text class="nodeTitle" x="1287" y="972">TAO 状态循环</text>
+    <text class="nodeSub" x="1250" y="1015">Think · Action · Observation</text>
+  </g>
+  <g>
+    <rect class="node" x="1215" y="1580" width="420" height="150" rx="38" fill="url(#cyanGrad)"/>
+    <text class="nodeTitle" x="1328" y="1642">Action 选择</text>
+    <text class="nodeSub" x="1270" y="1685">从受控候选空间选下一步</text>
+  </g>
+  <g>
+    <rect class="node" x="705" y="2200" width="390" height="150" rx="38" fill="url(#amberGrad)"/>
+    <text class="nodeTitle" x="780" y="2262">Replan / 回溯</text>
+    <text class="nodeSub" x="760" y="2305">基于证据做受控修正</text>
+  </g>
+  <g>
+    <rect class="node" x="165" y="1580" width="410" height="150" rx="38" fill="url(#violetGrad)"/>
+    <text class="nodeTitle" x="290" y="1642">状态管理</text>
+    <text class="nodeSub" x="220" y="1685">让每轮决策拥有可靠记忆</text>
+  </g>
+  <g>
+    <rect class="node" x="165" y="910" width="410" height="150" rx="38" fill="url(#pinkGrad)"/>
+    <text class="nodeTitle" x="275" y="972">面试主线场景</text>
+    <text class="nodeSub" x="220" y="1015">用动态业务证明机制价值</text>
+  </g>
+
+  <!-- Plan cluster -->
+  <g>
+    <rect class="node" x="330" y="450" width="230" height="104" rx="27" fill="#eff6ff"/>
+    <text class="miniTitle" x="405" y="492">Goal</text>
+    <text class="miniSub" x="370" y="526">目标 + 成功标准</text>
+    <path class="edgeSoft" d="M560 520 C630 545, 690 590, 730 620"/>
+  </g>
+  <g>
+    <rect class="node" x="600" y="405" width="240" height="104" rx="27" fill="#eff6ff"/>
+    <text class="miniTitle" x="675" y="447">Context</text>
+    <text class="miniSub" x="642" y="481">事实 · 缺口 · 约束</text>
+    <path class="edgeSoft" d="M720 509 C750 548, 785 575, 820 595"/>
+  </g>
+  <g>
+    <rect class="node" x="880" y="405" width="240" height="104" rx="27" fill="#eff6ff"/>
+    <text class="miniTitle" x="958" y="447">Choice</text>
+    <text class="miniSub" x="920" y="481">候选路径 + 理由</text>
+    <path class="edgeSoft" d="M1000 509 C980 548, 955 575, 930 595"/>
+  </g>
+  <g>
+    <rect class="node" x="1150" y="450" width="250" height="104" rx="27" fill="#eff6ff"/>
+    <text class="miniTitle" x="1212" y="492">Checkpoint</text>
+    <text class="miniSub" x="1190" y="526">检查结果 + 证据</text>
+    <path class="edgeSoft" d="M1150 520 C1090 548, 1040 580, 1010 610"/>
+  </g>
+  <g>
+    <rect class="node" x="730" y="780" width="250" height="104" rx="27" fill="#eff6ff"/>
+    <text class="miniTitle" x="785" y="822">Correction</text>
+    <text class="miniSub" x="770" y="856">Retry / Replan / 中断</text>
+    <path class="edgeSoft" d="M855 780 C870 765, 885 750, 900 740"/>
+  </g>
+
+  <!-- Interview cluster -->
+  <g>
+    <rect class="node" x="35" y="620" width="270" height="104" rx="27" fill="#fdf2f8"/>
+    <text class="miniTitle" x="108" y="662">多步骤业务</text>
+    <text class="miniSub" x="76" y="696">目标需要多轮才能完成</text>
+    <path class="edgeSoft" d="M245 724 C275 785, 315 855, 350 910"/>
+  </g>
+  <g>
+    <rect class="node" x="60" y="1100" width="270" height="104" rx="27" fill="#fdf2f8"/>
+    <text class="miniTitle" x="127" y="1142">用户交互</text>
+    <text class="miniSub" x="98" y="1176">多轮补充与执行中纠正</text>
+    <path class="edgeSoft" d="M260 1100 C300 1075, 330 1062, 360 1060"/>
+  </g>
+  <g>
+    <rect class="node" x="350" y="1195" width="270" height="104" rx="27" fill="#fdf2f8"/>
+    <text class="miniTitle" x="418" y="1237">动态分支</text>
+    <text class="miniSub" x="390" y="1271">运行时 Observation 决定</text>
+    <path class="edgeSoft" d="M485 1195 C455 1135, 425 1090, 390 1060"/>
+  </g>
+  <g>
+    <rect class="node" x="35" y="1325" width="290" height="104" rx="27" fill="#fdf2f8"/>
+    <text class="miniTitle" x="100" y="1367">失败恢复故事</text>
+    <text class="miniSub" x="76" y="1401">失败点与根因点必须分离</text>
+    <path class="edgeSoft" d="M260 1325 C315 1230, 345 1140, 370 1060"/>
+  </g>
+
+  <!-- TAO cluster -->
+  <g>
+    <rect class="node" x="1340" y="610" width="240" height="104" rx="27" fill="#ecfdf5"/>
+    <text class="miniTitle" x="1420" y="652">Think</text>
+    <text class="miniSub" x="1377" y="686">目标 · 缺口 · 路径 · 停止</text>
+    <path class="edgeSoft" d="M1450 714 C1435 790, 1415 855, 1400 910"/>
+  </g>
+  <g>
+    <rect class="node" x="1510" y="760" width="240" height="104" rx="27" fill="#ecfdf5"/>
+    <text class="miniTitle" x="1583" y="802">Action</text>
+    <text class="miniSub" x="1545" y="836">执行受控业务动作</text>
+    <path class="edgeSoft" d="M1510 835 C1475 875, 1450 900, 1425 910"/>
+  </g>
+  <g>
+    <rect class="node" x="1505" y="1085" width="250" height="104" rx="27" fill="#ecfdf5"/>
+    <text class="miniTitle" x="1564" y="1127">Observation</text>
+    <text class="miniSub" x="1540" y="1161">解释结果并更新状态</text>
+    <path class="edgeSoft" d="M1515 1085 C1480 1065, 1450 1055, 1420 1060"/>
+  </g>
+  <g>
+    <rect class="node" x="1190" y="1225" width="300" height="125" rx="27" fill="#ecfdf5"/>
+    <text class="miniTitle" x="1278" y="1267">六个出口</text>
+    <text class="miniSub" x="1228" y="1301">继续 · 完成 · 澄清 · 重试</text>
+    <text class="miniSub" x="1260" y="1331">Replan · 中断</text>
+    <path class="edgeSoft" d="M1340 1235 C1360 1170, 1380 1115, 1390 1060"/>
+  </g>
+
+  <!-- State cluster -->
+  <g>
+    <rect class="node" x="45" y="1480" width="240" height="104" rx="27" fill="#f5f3ff"/>
+    <text class="miniTitle" x="100" y="1522">Goal State</text>
+    <text class="miniSub" x="80" y="1556">最终目标 + 当前目标</text>
+    <path class="edgeSoft" d="M285 1545 C315 1560, 335 1570, 360 1580"/>
+  </g>
+  <g>
+    <rect class="node" x="45" y="1790" width="250" height="104" rx="27" fill="#f5f3ff"/>
+    <text class="miniTitle" x="92" y="1832">Action State</text>
+    <text class="miniSub" x="78" y="1866">参数 · 结果 · 重试 · 回滚</text>
+    <path class="edgeSoft" d="M260 1790 C300 1765, 335 1745, 365 1730"/>
+  </g>
+  <g>
+    <rect class="node" x="335" y="1815" width="275" height="104" rx="27" fill="#f5f3ff"/>
+    <text class="miniTitle" x="390" y="1857">Observation State</text>
+    <text class="miniSub" x="385" y="1891">事实变化 · 异常 · 进展</text>
+    <path class="edgeSoft" d="M470 1815 C450 1780, 420 1750, 395 1730"/>
+  </g>
+  <g>
+    <rect class="node" x="55" y="2020" width="285" height="104" rx="27" fill="#f5f3ff"/>
+    <text class="miniTitle" x="104" y="2062">Fact / Evidence</text>
+    <text class="miniSub" x="98" y="2096">事实分级并绑定证据</text>
+    <path class="edgeSoft" d="M275 2020 C325 1925, 360 1810, 370 1730"/>
+  </g>
+  <g>
+    <rect class="node" x="365" y="2100" width="250" height="104" rx="27" fill="#f5f3ff"/>
+    <text class="miniTitle" x="418" y="2142">Control State</text>
+    <text class="miniSub" x="410" y="2176">轮数 · Token · 时间预算</text>
+    <path class="edgeSoft" d="M490 2100 C460 1950, 420 1815, 390 1730"/>
+  </g>
+
+  <!-- Action cluster -->
+  <g>
+    <rect class="node" x="1500" y="1380" width="260" height="104" rx="27" fill="#ecfeff"/>
+    <text class="miniTitle" x="1555" y="1422">业务完整动作</text>
+    <text class="miniSub" x="1540" y="1456">可封装工具或子 Agent</text>
+    <path class="edgeSoft" d="M1530 1484 C1490 1525, 1460 1555, 1430 1580"/>
+  </g>
+  <g>
+    <rect class="node" x="1485" y="1775" width="275" height="104" rx="27" fill="#ecfeff"/>
+    <text class="miniTitle" x="1550" y="1817">候选筛选流水线</text>
+    <text class="miniSub" x="1525" y="1851">意图 · 规则 · 标签 · 召回</text>
+    <path class="edgeSoft" d="M1510 1775 C1480 1755, 1455 1740, 1425 1730"/>
+  </g>
+  <g>
+    <rect class="node" x="1190" y="1840" width="255" height="104" rx="27" fill="#ecfeff"/>
+    <text class="miniTitle" x="1262" y="1882">权限审计</text>
+    <text class="miniSub" x="1230" y="1916">授权 · 前置条件 · 参数</text>
+    <path class="edgeSoft" d="M1320 1840 C1350 1800, 1380 1760, 1400 1730"/>
+  </g>
+  <g>
+    <rect class="node" x="1490" y="2010" width="270" height="104" rx="27" fill="#ecfeff"/>
+    <text class="miniTitle" x="1542" y="2052">最大信息增益</text>
+    <text class="miniSub" x="1530" y="2086">优先降低关键不确定性</text>
+    <path class="edgeSoft" d="M1550 2010 C1515 1900, 1475 1810, 1430 1730"/>
+  </g>
+
+  <!-- Replan cluster -->
+  <g>
+    <rect class="node" x="620" y="2000" width="260" height="104" rx="27" fill="#fff7ed"/>
+    <text class="miniTitle" x="675" y="2042">四个关键位置</text>
+    <text class="miniSub" x="655" y="2076">失败 · 根因 · 回滚 · 起点</text>
+    <path class="edgeSoft" d="M760 2104 C790 2140, 820 2170, 850 2200"/>
+  </g>
+  <g>
+    <rect class="node" x="980" y="1990" width="275" height="104" rx="27" fill="#fff7ed"/>
+    <text class="miniTitle" x="1040" y="2032">可信状态传播</text>
+    <text class="miniSub" x="1018" y="2066">Verified / Invalid / Dirty</text>
+    <path class="edgeSoft" d="M1080 2094 C1035 2145, 995 2175, 960 2200"/>
+  </g>
+  <g>
+    <rect class="node" x="420" y="2250" width="250" height="104" rx="27" fill="#fff7ed"/>
+    <text class="miniTitle" x="482" y="2292">回溯层级</text>
+    <text class="miniSub" x="460" y="2326">动作 · 步骤 · 阶段 · 全局</text>
+    <path class="edgeSoft" d="M670 2300 C685 2290, 695 2285, 705 2278"/>
+  </g>
+  <g>
+    <rect class="node" x="1130" y="2250" width="250" height="104" rx="27" fill="#fff7ed"/>
+    <text class="miniTitle" x="1210" y="2292">TCC</text>
+    <text class="miniSub" x="1170" y="2326">Try · Confirm · Cancel</text>
+    <path class="edgeSoft" d="M1130 2300 C1118 2290, 1106 2285, 1095 2278"/>
+  </g>
+  <g>
+    <rect class="node" x="760" y="2420" width="290" height="104" rx="27" fill="#fff7ed"/>
+    <text class="miniTitle" x="820" y="2462">Replan 指标</text>
+    <text class="miniSub" x="800" y="2496">定位 · 起点 · 复用 · 恢复</text>
+    <path class="edgeSoft" d="M905 2420 C905 2395, 902 2375, 900 2350"/>
+  </g>
+
+  <!-- Cross-cluster semantic links -->
+  <path class="edgeSoft" d="M1395 1189 C1370 1320, 1380 1455, 1410 1580"/>
+  <path class="edgeSoft" d="M610 1860 C820 1860, 1030 1825, 1215 1680"/>
+  <path class="edgeSoft" d="M340 2070 C500 2190, 610 2250, 705 2270"/>
+  <path class="edgeSoft" d="M1500 2060 C1370 2180, 1230 2240, 1095 2270"/>
+  <path class="edgeSoft" d="M325 1375 C510 1530, 570 1800, 620 2035"/>
+
+  <!-- Bottom insight -->
+  <g transform="translate(100,2640)">
+    <rect x="0" y="0" width="1600" height="245" rx="40" fill="#ffffff" opacity=".98" stroke="#cbd5e1"/>
+    <text class="smallWhite" x="58" y="66">这张图的核心判断：</text>
+    <text class="smallWhite" x="58" y="116">Agent 规划与执行不是“先列步骤，再调用工具”，而是一个持续缩小状态与目标差距的受控闭环。</text>
+    <text class="smallWhite" x="58" y="166">Plan 定方向，TAO 推进，状态提供证据，Action 决定下一步，Replan 负责在失败后恢复。</text>
+  </g>
+</svg>
