@@ -13,6 +13,7 @@ description: 从中文课程文章、技术专栏、访谈材料、文档或章�
 - 图必须提出并证明一个判断，不能只是把摘要装进同样大小的卡片。
 - 综合教学图同时提供三层信息：一眼看懂的主线、可识别的阶段/角色、能学到具体内容的副文与检验。
 - 先写结构化 JSON，再由确定性脚本生成 SVG；黑白主题不得分别手改。
+- JSON 必须包含证据注册表；每个节点和关系用 `evidence_id` 回指来源，并区分 `explicit`、`inferred`、`disputed`。
 - 示例既约束视觉语言，也约束对应 profile 的空间语法。
 - SVG 是母版；禁止让生图模型重绘文字密集图。
 
@@ -23,6 +24,7 @@ description: 从中文课程文章、技术专栏、访谈材料、文档或章�
 - 高密度双列叙事图读 `references/spec-v3-story-loop.md`。
 - 选择版型和配色时读 `references/theme-system.md`。
 - 交付前读 `references/adversarial-review.md` 与 `references/qa-checklist.md`。
+- 维护渲染器、排查校验或扩展 profile 时才读 `references/implementation-notes.md`；普通生成不要加载。
 - 径向样例：`assets/examples/knowledge-graph-method-spec.json`。
 - 叙事闭环样例：`assets/examples/fde-story-loop-spec.json`。
 
@@ -45,7 +47,7 @@ description: 从中文课程文章、技术专栏、访谈材料、文档或章�
 
 ### 3. 建立证据化图谱
 
-完整读取原文，形成中心命题、节点表、关系表、删除项和推断声明。把每条边读成“起点 + 关系 + 终点”；读不通就改词、降级或删除。
+完整读取原文，形成中心命题、证据注册表、节点表、关系表、删除项和推断声明。每个节点和关系都必须引用有效 `evidence_id`。把每条边读成“起点 + 关系 + 终点”；读不通就改词、降级或删除。
 
 结构结论只能是：
 
@@ -79,11 +81,14 @@ python <skill-dir>/scripts/build_story_graph.py <topic>-story-spec.json \
 ```bash
 python <skill-dir>/scripts/compare_svg_structure.py <dark.svg> <light.svg>
 python <skill-dir>/scripts/self_test.py
+python <skill-dir>/scripts/validate_svg_geometry.py <dark.svg>
+python <skill-dir>/scripts/validate_svg_geometry.py <light.svg>
 python <skill-dir>/scripts/render_svg.py <dark.svg> --out <dark.png> --scale 2
 python <skill-dir>/scripts/render_svg.py <light.svg> --out <light.png> --scale 2
+python <skill-dir>/scripts/make_mobile_previews.py <light.svg> --out-dir <review-dir>
 ```
 
-脚本通过不等于视觉通过。必须查看整图和文字密集局部，修正溢出、遮挡、失衡、无意义留白和单调配色，然后重新渲染。综合图按自然段或阶段逐区复核，不要一次生成后直接交付。
+脚本通过不等于视觉通过。必须查看整图、390 px 宽预览和文字密集局部，修正溢出、遮挡、失衡、无意义留白和单调配色，然后重新渲染。综合图按自然段或阶段逐区复核，不要一次生成后直接交付。
 
 ### 6. 对抗式审查
 

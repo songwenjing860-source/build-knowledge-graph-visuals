@@ -22,6 +22,9 @@
 - 支持 `mobile-radial`、`poster-radial` 与高密度 `story-loop` 三种 profile。
 - 以 SVG 为母版，输出同构的黑底、白底 PNG/JPG。
 - 自动检查黑白版本的文字、坐标和关系结构是否一致。
+- JSON 内置证据注册表；节点和关系必须通过 `evidence_id` 回指真实来源。
+- 使用浏览器真实字体度量检查节点文字、关系标签和画布越界。
+- 自动生成 390 px 宽移动端整图及上、中、下审查裁切图。
 - 内置第一性原理、对抗式审查和视觉 QA 清单。
 - v2 使用结构化 JSON 和确定性渲染器，固定中心、环层、节点槽位、配色与字体层级，避免每次重新发明布局。
 - 提供 `poster-radial` 和 `mobile-radial` 两个严格 profile；内容超限时要求删减或拆图。
@@ -70,6 +73,7 @@ cp -R build-knowledge-graph-visuals/skills/build-knowledge-graph-visuals ~/.code
 
 ```text
 <topic>-graph-spec.md
+<topic>-graph-spec.json
 <topic>-knowledge-graph-dark.svg
 <topic>-knowledge-graph-dark.png
 <topic>-knowledge-graph-light.svg
@@ -80,7 +84,7 @@ cp -R build-knowledge-graph-visuals/skills/build-knowledge-graph-visuals ~/.code
 
 1. 节点是知识对象，不是文章目录。
 2. 连线必须有可读的关系动词。
-3. 强关系必须有证据或明确标注为推断。
+3. 所有节点和关系必须引用有效证据；编辑推断必须标注为 `inferred`。
 4. 黑白版本共用节点、坐标和关系，只切换主题变量。
 5. 大像素不等于手机可读；必须在目标显示宽度下检查。
 6. 如果交叉关系不是理解内容的必要条件，就不要硬做知识图谱。
@@ -101,11 +105,14 @@ build-knowledge-graph-visuals/
     │   ├── spec-v3-story-loop.md
     │   ├── theme-system.md
     │   ├── adversarial-review.md
+    │   ├── implementation-notes.md
     │   └── qa-checklist.md
     └── scripts/
         ├── compare_svg_structure.py
         ├── build_graph.py
         ├── build_story_graph.py
+        ├── validate_svg_geometry.py
+        ├── make_mobile_previews.py
         ├── self_test.py
         └── render_svg.py
 ```

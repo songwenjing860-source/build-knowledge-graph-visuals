@@ -11,10 +11,17 @@ Use this schema with `scripts/build_graph.py`. The JSON is the source of truth f
   "reading_guide": "中心是核心判断，第一圈是关键模块，外圈是问题、机制和指标。",
   "footer": "一句可以独立传播的核心判断。",
   "source_note": "来源：用户提供的材料；推断关系已在图谱规格中标明。",
+  "evidence": [{
+    "id": "lesson-01-p12",
+    "source": "课程第 01 讲",
+    "locator": "第 12 段",
+    "excerpt": "支持该节点或关系的简短原文"
+  }],
   "center": {
     "id": "core",
     "title": "核心对象",
-    "subtitle": "它解决什么问题，以及为什么重要"
+    "subtitle": "它解决什么问题，以及为什么重要",
+    "evidence_id": "lesson-01-p12"
   },
   "groups": [
     {
@@ -22,16 +29,19 @@ Use this schema with `scripts/build_graph.py`. The JSON is the source of truth f
       "label": "输入理解",
       "color": "blue",
       "relation": "依赖",
+      "evidence_id": "lesson-01-p12",
       "primary": {
         "id": "input-normalization",
         "title": "输入规范化",
-        "subtitle": "把自然输入变成结构化输入"
+        "subtitle": "把自然输入变成结构化输入",
+        "evidence_id": "lesson-01-p12"
       },
       "satellites": [
         {
           "id": "context",
           "title": "上下文召回",
-          "subtitle": "历史对话与关键事实"
+          "subtitle": "历史对话与关键事实",
+          "evidence_id": "lesson-01-p12"
         }
       ]
     }
@@ -42,7 +52,9 @@ Use this schema with `scripts/build_graph.py`. The JSON is the source of truth f
       "target": "another-primary-node",
       "label": "提供输入",
       "strength": "strong",
-      "bend": 60
+      "bend": 60,
+      "evidence_id": "lesson-01-p12",
+      "status": "explicit"
     }
   ]
 }
@@ -73,6 +85,9 @@ Use this schema with `scripts/build_graph.py`. The JSON is the source of truth f
 - Every group has exactly one primary node. Satellites explain or qualify that primary node.
 - A group has one semantic color. Do not assign colors node by node.
 - `relation` is the labeled strong edge between the center and the group primary.
+- `evidence` is required. Every center, primary, satellite, group relation, and cross-relation must reference a valid `evidence_id`.
+- `status` may be `explicit`, `inferred`, or `disputed`; omitted values default to `explicit`.
+- A group may use `bend` from `-160` to `160` when its center relation needs room for a collision-free label.
 - `relations` contains only cross-group relations that materially change understanding.
 - `bend` may be `-160` to `160`; use it only to separate a cross-edge from another edge.
 - Do not add coordinates, colors, font sizes, gradients, or SVG fragments to the JSON.

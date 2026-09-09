@@ -26,6 +26,8 @@ PALETTES = {
     "rose": ("#fbcfe8", "#f472b6", "#db2777"),
 }
 
+VALID_STATUSES = {"explicit", "inferred", "disputed"}
+
 PROFILES = {
     "poster-radial": {
         "width": 1800,
@@ -78,6 +80,8 @@ class Box:
     y: float
     width: float
     height: float
+    evidence_id: str = ""
+    status: str = "explicit"
 
     @property
     def cx(self) -> float:
@@ -108,6 +112,38 @@ def require_copy_fit(text: str, field: str, width: float, font_size: int,
         fail(f"{field} does not fit its {lines}-line slot; shorten the wording")
 
 
+def validate_evidence(spec: dict[str, Any]) -> set[str]:
+    evidence = spec.get("evidence")
+    if not isinstance(evidence, list) or not evidence:
+        fail("evidence must contain at least one source record")
+    evidence_ids: set[str] = set()
+    for index, item in enumerate(evidence):
+        field = f"evidence[{index}]"
+        if not isinstance(item, dict):
+            fail(f"{field} must be an object")
+        evidence_id = require_text(item.get("id"), f"{field}.id", 32)
+        if evidence_id in evidence_ids:
+            fail(f"duplicate evidence id: {evidence_id}")
+        evidence_ids.add(evidence_id)
+        require_text(item.get("source"), f"{field}.source", 80)
+        require_text(item.get("locator"), f"{field}.locator", 120)
+        excerpt = item.get("excerpt")
+        if excerpt is not None:
+            require_text(excerpt, f"{field}.excerpt", 220)
+    return evidence_ids
+
+
+def validate_evidence_ref(item: dict[str, Any], field: str,
+                          evidence_ids: set[str]) -> tuple[str, str]:
+    evidence_id = require_text(item.get("evidence_id"), f"{field}.evidence_id", 32)
+    if evidence_id not in evidence_ids:
+        fail(f"{field}.evidence_id references unknown evidence: {evidence_id}")
+    status = item.get("status", "explicit")
+    if status not in VALID_STATUSES:
+        fail(f"{field}.status must be one of: {', '.join(sorted(VALID_STATUSES))}")
+    return evidence_id, status
+
+
 def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
     if spec.get("version") != 2:
         fail("version must be 2")
@@ -115,6 +151,7 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
     if profile_name not in PROFILES:
         fail(f"profile must be one of: {', '.join(PROFILES)}")
     profile = PROFILES[profile_name]
+    evidence_ids = validate_evidence(spec)
     require_text(spec.get("title"), "title", 32)
     require_text(spec.get("subtitle"), "subtitle", 54)
     require_text(spec.get("reading_guide"), "reading_guide", 78)
@@ -125,6 +162,7 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
     require_text(center.get("id"), "center.id", 32)
     center_title = require_text(center.get("title"), "center.title", 18)
     center_subtitle = require_text(center.get("subtitle"), "center.subtitle", 42)
+    validate_evidence_ref(center, "center", evidence_ids)
     core_width = profile["core_radius"] * 2
     require_copy_fit(center_title, "center.title", core_width, profile["font"]["core"], padding=20)
     require_copy_fit(center_subtitle, "center.subtitle", core_width, profile["font"]["body"], lines=2)
@@ -149,6 +187,10 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
         group_label = require_text(group.get("label"), f"{field}.label", 12)
         legend_labels.append(group_label)
         require_text(group.get("relation"), f"{field}.relation", 10)
+        validate_evidence_ref(group, field, evidence_ids)
+        group_bend = group.get("bend", 0)
+        if not isinstance(group_bend, (int, float)) or not -160 <= group_bend <= 160:
+            fail(f"{field}.bend must be between -160 and 160")
         primary = group.get("primary")
         if not isinstance(primary, dict):
             fail(f"{field}.primary must be an object")
@@ -158,6 +200,7 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
         ids.add(primary_id)
         primary_title = require_text(primary.get("title"), f"{field}.primary.title", 18)
         primary_subtitle = require_text(primary.get("subtitle"), f"{field}.primary.subtitle", 42)
+        validate_evidence_ref(primary, f"{field}.primary", evidence_ids)
         require_copy_fit(primary_title, f"{field}.primary.title", profile["primary_size"][0], profile["font"]["primary"])
         require_copy_fit(primary_subtitle, f"{field}.primary.subtitle", profile["primary_size"][0], profile["font"]["body"], lines=2)
         node_count += 1
@@ -175,6 +218,7 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
             ids.add(node_id)
             node_title = require_text(node.get("title"), f"{node_field}.title", 16)
             node_subtitle = require_text(node.get("subtitle"), f"{node_field}.subtitle", 32)
+            validate_evidence_ref(node, node_field, evidence_ids)
             require_copy_fit(node_title, f"{node_field}.title", profile["satellite_size"][0], profile["font"]["satellite"], padding=32)
             require_copy_fit(node_subtitle, f"{node_field}.subtitle", profile["satellite_size"][0], profile["font"]["body"], lines=2, padding=32)
             node_count += 1
@@ -199,6 +243,7 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
         if relation.get("source") not in ids or relation.get("target") not in ids:
             fail(f"{field} references an unknown node")
         require_text(relation.get("label"), f"{field}.label", 10)
+        validate_evidence_ref(relation, field, evidence_ids)
         if relation.get("strength", "strong") not in {"strong", "weak"}:
             fail(f"{field}.strength must be strong or weak")
         bend = relation.get("bend", 0)
@@ -220,7 +265,8 @@ def layout(spec: dict[str, Any], profile: dict[str, Any]) -> dict[str, Box]:
     radius = profile["core_radius"]
     boxes[center["id"]] = Box(center["id"], "center", "center", "violet", center["title"],
                                      center["subtitle"], cx - radius, cy - radius,
-                                     radius * 2, radius * 2)
+                                     radius * 2, radius * 2, center["evidence_id"],
+                                     center.get("status", "explicit"))
 
     groups = spec["groups"]
     start_angle = -90
@@ -232,7 +278,8 @@ def layout(spec: dict[str, Any], profile: dict[str, Any]) -> dict[str, Box]:
         primary = group["primary"]
         boxes[primary["id"]] = Box(primary["id"], "primary", group["id"], group["color"],
                                             primary["title"], primary["subtitle"],
-                                            px - pw / 2, py - ph / 2, pw, ph)
+                                            px - pw / 2, py - ph / 2, pw, ph,
+                                            primary["evidence_id"], primary.get("status", "explicit"))
 
         satellites = group.get("satellites", [])
         count = len(satellites)
@@ -252,7 +299,8 @@ def layout(spec: dict[str, Any], profile: dict[str, Any]) -> dict[str, Box]:
                 sx, sy = polar(cx, cy, *profile["satellite_radius"], angle + offset)
                 boxes[node["id"]] = Box(node["id"], "satellite", group["id"], group["color"],
                                                  node["title"], node["subtitle"],
-                                                 sx - sw / 2, sy - sh / 2, sw, sh)
+                                                 sx - sw / 2, sy - sh / 2, sw, sh,
+                                                 node["evidence_id"], node.get("status", "explicit"))
     return boxes
 
 
@@ -303,8 +351,41 @@ def point_in_box(point: tuple[float, float], box: Box, padding: float = 16) -> b
             and box.y - padding <= point[1] <= box.y + box.height + padding)
 
 
-def validate_relation_routes(spec: dict[str, Any], boxes: dict[str, Box]) -> None:
+def graph_edges(spec: dict[str, Any]) -> list[dict[str, Any]]:
+    edges: list[dict[str, Any]] = []
+    center_id = spec["center"]["id"]
+    for group in spec["groups"]:
+        primary_id = group["primary"]["id"]
+        edges.append({
+            "source": center_id,
+            "target": primary_id,
+            "label": group["relation"],
+            "strength": "strong",
+            "bend": group.get("bend", 0),
+            "evidence_id": group["evidence_id"],
+            "status": group.get("status", "explicit"),
+            "field": f"groups[{group['id']}].relation",
+        })
+        for satellite in group.get("satellites", []):
+            edges.append({
+                "source": primary_id,
+                "target": satellite["id"],
+                "label": "",
+                "strength": "weak",
+                "bend": 0,
+                "evidence_id": satellite["evidence_id"],
+                "status": satellite.get("status", "explicit"),
+                "field": f"satellite[{satellite['id']}]",
+            })
     for index, relation in enumerate(spec.get("relations", [])):
+        edges.append({**relation, "field": f"relations[{index}]"})
+    return edges
+
+
+def validate_relation_routes(spec: dict[str, Any], boxes: dict[str, Box],
+                             profile: dict[str, Any]) -> dict[int, Box]:
+    edges = graph_edges(spec)
+    for index, relation in enumerate(edges):
         source = boxes[relation["source"]]
         target = boxes[relation["target"]]
         geometry = curve_geometry(source, target, relation.get("bend", 0))
@@ -313,7 +394,40 @@ def validate_relation_routes(spec: dict[str, Any], boxes: dict[str, Box]) -> Non
             point = curve_point(*geometry, step / 20)
             hit = next((box for box in unrelated if point_in_box(point, box)), None)
             if hit:
-                fail(f"relations[{index}] crosses node {hit.node_id}; change bend or split the graph")
+                fail(f"{relation['field']} crosses node {hit.node_id}; change bend or split the graph")
+
+    labels: dict[int, Box] = {}
+    occupied: list[Box] = []
+    width, height = profile["width"], profile["height"]
+    font_size = profile["font"]["edge"]
+    candidates = (0.52, 0.35, 0.65, 0.22, 0.78)
+    for index, relation in enumerate(edges):
+        if relation.get("strength", "strong") == "weak" or not relation.get("label"):
+            continue
+        source = boxes[relation["source"]]
+        target = boxes[relation["target"]]
+        geometry = curve_geometry(source, target, relation.get("bend", 0))
+        label_width = max(76, visual_units(relation["label"]) * font_size + 30)
+        selected = None
+        for candidate in candidates:
+            lx, ly = curve_point(*geometry, candidate)
+            trial = Box(f"edge-label-{index}", "label", "edge", "", "", "",
+                        lx - label_width / 2, ly - 19, label_width, 38)
+            inside = (4 <= trial.x and trial.x + trial.width <= width - 4
+                      and 4 <= trial.y and trial.y + trial.height <= height - 4)
+            if not inside:
+                continue
+            if any(overlap(trial, box, padding=8) for box in boxes.values()):
+                continue
+            if any(overlap(trial, old, padding=6) for old in occupied):
+                continue
+            selected = trial
+            break
+        if selected is None:
+            fail(f"{relation['field']} has no collision-free label position; change bend, shorten the label, or split the graph")
+        labels[index] = selected
+        occupied.append(selected)
+    return labels
 
 
 def clip_to_box(source: Box, target: Box) -> tuple[float, float]:
@@ -359,31 +473,23 @@ def visual_units(text: str) -> float:
 
 
 def edge_svg(source: Box, target: Box, label: str, strength: str, bend: float,
-             edge_index: int, font_size: int, avoid_boxes: list[Box] | None = None) -> str:
+             edge_index: int, label_box: Box | None, evidence_id: str, status: str) -> str:
     start, control, end = curve_geometry(source, target, bend)
     path_class = "edge weak" if strength == "weak" else "edge strong"
     marker = "" if strength == "weak" else ' marker-end="url(#arrow)"'
     path = (f'<path data-role="edge" data-source="{svg_text(source.node_id)}" '
             f'data-target="{svg_text(target.node_id)}" class="{path_class}" '
+            f'data-evidence-id="{svg_text(evidence_id)}" data-status="{svg_text(status)}" '
             f'd="M {start[0]:.1f} {start[1]:.1f} Q {control[0]:.1f} {control[1]:.1f} '
             f'{end[0]:.1f} {end[1]:.1f}"{marker}/>' )
     if strength == "weak":
         return path
-    label_width = max(76, visual_units(label) * font_size + 30)
-    label_height = 38
-    candidates = (0.52, 0.35, 0.65, 0.22, 0.78)
-    lx, ly = curve_point(start, control, end, candidates[0])
-    for candidate in candidates:
-        trial_x, trial_y = curve_point(start, control, end, candidate)
-        label_box = Box("edge-label", "label", "edge", "", "", "",
-                        trial_x - label_width / 2, trial_y - label_height / 2,
-                        label_width, label_height)
-        if not any(overlap(label_box, box, padding=8) for box in (avoid_boxes or [])):
-            lx, ly = trial_x, trial_y
-            break
+    if label_box is None:
+        fail(f"edge {edge_index} is missing its validated label box")
+    lx, ly = label_box.cx, label_box.cy
     label_svg = (f'<g data-role="edge-label" data-edge-index="{edge_index}">'
-                 f'<rect class="edge-label-bg" x="{lx - label_width / 2:.1f}" y="{ly - 19:.1f}" '
-                 f'width="{label_width:.1f}" height="38" rx="13"/>'
+                 f'<rect class="edge-label-bg" x="{label_box.x:.1f}" y="{label_box.y:.1f}" '
+                 f'width="{label_box.width:.1f}" height="{label_box.height:.1f}" rx="13"/>'
                  f'<text class="edge-label" x="{lx:.1f}" y="{ly + 7:.1f}" text-anchor="middle">'
                  f'{svg_text(label)}</text></g>')
     return path + label_svg
@@ -410,6 +516,7 @@ def node_svg(box: Box, font: dict[str, int]) -> str:
                  f'text-anchor="middle" style="font-size:{body_size}px">{svg_text(line)}</text>')
     return (f'<g id="node-{svg_text(box.node_id)}" data-role="node" data-node-role="{box.role}" '
             f'data-node-id="{svg_text(box.node_id)}" data-group="{svg_text(box.group_id)}" '
+            f'data-evidence-id="{svg_text(box.evidence_id)}" data-status="{svg_text(box.status)}" '
             f'data-color="{box.color}" data-x="{box.x:.1f}" data-y="{box.y:.1f}" '
             f'data-width="{box.width:.1f}" data-height="{box.height:.1f}">{shape}{text}</g>')
 
@@ -472,24 +579,15 @@ def render_svg(spec: dict[str, Any], profile: dict[str, Any], boxes: dict[str, B
       .source {{ fill:{muted}; font-size:{max(17, font['body'] - 3)}px; }}
     """
 
-    group_lookup = {group["id"]: group for group in spec["groups"]}
+    edge_records = graph_edges(spec)
+    label_boxes = validate_relation_routes(spec, boxes, profile)
     edges: list[str] = []
-    edge_index = 0
-    center_box = boxes[spec["center"]["id"]]
-    for group in spec["groups"]:
-        primary = boxes[group["primary"]["id"]]
-        edges.append(edge_svg(center_box, primary, group["relation"], "strong", 0, edge_index, font["edge"]))
-        edge_index += 1
-        for satellite in group.get("satellites", []):
-            edges.append(edge_svg(primary, boxes[satellite["id"]], "", "weak", 0, edge_index, font["edge"]))
-            edge_index += 1
-    for relation in spec.get("relations", []):
-        avoid = [box for box in boxes.values()
-                 if box.node_id not in {relation["source"], relation["target"]}]
-        edges.append(edge_svg(boxes[relation["source"]], boxes[relation["target"]], relation["label"],
-                              relation.get("strength", "strong"), relation.get("bend", 0),
-                              edge_index, font["edge"], avoid))
-        edge_index += 1
+    for edge_index, relation in enumerate(edge_records):
+        edges.append(edge_svg(
+            boxes[relation["source"]], boxes[relation["target"]], relation.get("label", ""),
+            relation.get("strength", "strong"), relation.get("bend", 0), edge_index,
+            label_boxes.get(edge_index), relation["evidence_id"], relation.get("status", "explicit"),
+        ))
 
     legend_items = []
     legend_x = profile["margin"] + 18
@@ -520,7 +618,7 @@ def render_svg(spec: dict[str, Any], profile: dict[str, Any], boxes: dict[str, B
     for group in spec["groups"]:
         group_nodes.append(node_svg(boxes[group["primary"]["id"]], font))
         group_nodes.extend(node_svg(boxes[node["id"]], font) for node in group.get("satellites", []))
-    group_nodes.append(node_svg(center_box, font))
+    group_nodes.append(node_svg(boxes[spec["center"]["id"]], font))
 
     return "\n".join([
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" data-layout-version="2" data-profile="{spec["profile"]}" data-theme="{theme}">',
@@ -552,7 +650,7 @@ def main() -> int:
         profile = validate_spec(spec)
         boxes = layout(spec, profile)
         validate_layout(boxes, profile)
-        validate_relation_routes(spec, boxes)
+        validate_relation_routes(spec, boxes, profile)
         print(f"PASS: {spec['profile']}, {len(boxes)} nodes, {len(spec.get('relations', []))} cross-relations")
         if args.validate_only:
             return 0

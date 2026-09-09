@@ -17,12 +17,17 @@ def exercise(spec_path: Path) -> None:
     profile = build_graph.validate_spec(spec)
     boxes = build_graph.layout(spec, profile)
     build_graph.validate_layout(boxes, profile)
-    build_graph.validate_relation_routes(spec, boxes)
+    label_boxes = build_graph.validate_relation_routes(spec, boxes, profile)
+    labels = list(label_boxes.values())
+    for index, first in enumerate(labels):
+        for second in labels[index + 1:]:
+            assert not build_graph.overlap(first, second, padding=6)
     dark = build_graph.render_svg(spec, profile, boxes, "dark")
     light = build_graph.render_svg(spec, profile, boxes, "light")
     expected_nodes = 1 + sum(1 + len(group.get("satellites", [])) for group in spec["groups"])
     for rendered in (dark, light):
         assert rendered.count('data-role="node"') == expected_nodes
+        assert rendered.count('data-evidence-id="') >= expected_nodes
         assert f'data-profile="{spec["profile"]}"' in rendered
         assert 'data-layout-version="2"' in rendered
     with tempfile.TemporaryDirectory(prefix="kg-v2-test-") as directory:
@@ -54,6 +59,24 @@ def exercise_rejections(spec_path: Path) -> None:
     else:
         raise AssertionError("relation to an unknown node was not rejected")
 
+    unknown_evidence = deepcopy(spec)
+    unknown_evidence["center"]["evidence_id"] = "missing-evidence"
+    try:
+        build_graph.validate_spec(unknown_evidence)
+    except ValueError as exc:
+        assert "unknown evidence" in str(exc)
+    else:
+        raise AssertionError("unknown evidence reference was not rejected")
+
+    missing_evidence = deepcopy(spec)
+    missing_evidence.pop("evidence")
+    try:
+        build_graph.validate_spec(missing_evidence)
+    except ValueError as exc:
+        assert "evidence must contain" in str(exc)
+    else:
+        raise AssertionError("missing evidence registry was not rejected")
+
 
 def exercise_story(spec_path: Path) -> None:
     spec = json.loads(spec_path.read_text(encoding="utf-8"))
@@ -63,6 +86,7 @@ def exercise_story(spec_path: Path) -> None:
     light = build_story_graph.render(spec, boxes, "light")
     for rendered in (dark, light):
         assert rendered.count('data-role="node"') == len(boxes)
+        assert rendered.count('data-evidence-id="') == len(boxes) + len(spec["relations"])
         assert 'data-profile="story-loop"' in rendered
         assert 'data-layout-version="3"' in rendered
 
@@ -74,6 +98,15 @@ def exercise_story(spec_path: Path) -> None:
         assert "overflows" in str(exc)
     else:
         raise AssertionError("story-loop accepted overflowing copy")
+
+    missing_evidence = deepcopy(spec)
+    missing_evidence["relations"][0].pop("evidence_id")
+    try:
+        build_story_graph.validate_spec(missing_evidence)
+    except ValueError as exc:
+        assert "evidence_id" in str(exc)
+    else:
+        raise AssertionError("story-loop accepted a relation without evidence")
 
 
 def main() -> int:

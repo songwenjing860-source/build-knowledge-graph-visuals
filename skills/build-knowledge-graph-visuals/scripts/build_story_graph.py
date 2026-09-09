@@ -39,6 +39,8 @@ TYPE_STYLE = {
     "boundary": ("边界", "#ddd6fe", "#a78bfa"),
 }
 
+VALID_STATUSES = {"explicit", "inferred", "disputed"}
+
 
 @dataclass(frozen=True)
 class Box:
@@ -51,6 +53,8 @@ class Box:
     title: str
     subtitle: str
     slot: str
+    evidence_id: str = ""
+    status: str = "explicit"
 
     @property
     def cx(self) -> float:
@@ -76,6 +80,38 @@ def require_text(value: Any, field: str, maximum: int) -> str:
     if len(value) > maximum:
         fail(f"{field} is too long ({len(value)} > {maximum})")
     return value
+
+
+def validate_evidence(spec: dict[str, Any]) -> set[str]:
+    evidence = spec.get("evidence")
+    if not isinstance(evidence, list) or not evidence:
+        fail("evidence must contain at least one source record")
+    evidence_ids: set[str] = set()
+    for index, item in enumerate(evidence):
+        field = f"evidence[{index}]"
+        if not isinstance(item, dict):
+            fail(f"{field} must be an object")
+        evidence_id = require_text(item.get("id"), f"{field}.id", 32)
+        if evidence_id in evidence_ids:
+            fail(f"duplicate evidence id: {evidence_id}")
+        evidence_ids.add(evidence_id)
+        require_text(item.get("source"), f"{field}.source", 80)
+        require_text(item.get("locator"), f"{field}.locator", 120)
+        excerpt = item.get("excerpt")
+        if excerpt is not None:
+            require_text(excerpt, f"{field}.excerpt", 220)
+    return evidence_ids
+
+
+def validate_evidence_ref(item: dict[str, Any], field: str,
+                          evidence_ids: set[str]) -> tuple[str, str]:
+    evidence_id = require_text(item.get("evidence_id"), f"{field}.evidence_id", 32)
+    if evidence_id not in evidence_ids:
+        fail(f"{field}.evidence_id references unknown evidence: {evidence_id}")
+    status = item.get("status", "explicit")
+    if status not in VALID_STATUSES:
+        fail(f"{field}.status must be one of: {', '.join(sorted(VALID_STATUSES))}")
+    return evidence_id, status
 
 
 def split_two_lines(text: str, capacity: float) -> list[str]:
@@ -125,6 +161,7 @@ def validate_copy(title: str, subtitle: str, width: float, field: str,
 def validate_spec(spec: dict[str, Any]) -> dict[str, Box]:
     if spec.get("version") != 3 or spec.get("profile") != "story-loop":
         fail("story-loop requires version 3 and profile story-loop")
+    evidence_ids = validate_evidence(spec)
     title = require_text(spec.get("title"), "title", 28)
     subtitle = require_text(spec.get("subtitle"), "subtitle", 48)
     guide = require_text(spec.get("reading_guide"), "reading_guide", 70)
@@ -143,10 +180,11 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Box]:
     center_id = require_text(center.get("id"), "center.id", 24)
     center_title = require_text(center.get("title"), "center.title", 18)
     center_subtitle = require_text(center.get("subtitle"), "center.subtitle", 40)
+    center_evidence, center_status = validate_evidence_ref(center, "center", evidence_ids)
     validate_copy(center_title, center_subtitle, CORE_SLOT[2], "center",
                   FONT["core"], FONT["core_body"])
     boxes = {center_id: Box(center_id, *CORE_SLOT, "center", center_title,
-                            center_subtitle, "center")}
+                            center_subtitle, "center", center_evidence, center_status)}
 
     nodes = spec.get("nodes")
     if not isinstance(nodes, list) or not 10 <= len(nodes) <= len(SLOTS):
@@ -170,9 +208,11 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Box]:
             fail(f"{field}.type must be one of: {', '.join(TYPE_STYLE)}")
         title = require_text(node.get("title"), f"{field}.title", 16)
         subtitle = require_text(node.get("subtitle"), f"{field}.subtitle", 40)
+        evidence_id, status = validate_evidence_ref(node, field, evidence_ids)
         x, y, width, height = SLOTS[slot]
         validate_copy(title, subtitle, width, field)
-        boxes[node_id] = Box(node_id, x, y, width, height, node_type, title, subtitle, slot)
+        boxes[node_id] = Box(node_id, x, y, width, height, node_type, title, subtitle, slot,
+                             evidence_id, status)
 
     ids = set(boxes)
     relations = spec.get("relations")
@@ -184,6 +224,7 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Box]:
         if relation.get("source") not in ids or relation.get("target") not in ids:
             fail(f"{field} references an unknown node")
         require_text(relation.get("label"), f"{field}.label", 10)
+        validate_evidence_ref(relation, field, evidence_ids)
         if relation.get("kind", "strong") not in {"strong", "constraint", "weak"}:
             fail(f"{field}.kind must be strong, constraint, or weak")
         if relation.get("route", "direct") not in allowed_routes:
@@ -293,7 +334,9 @@ def node_svg(box: Box) -> str:
     first_y = title_y + 48
     for line_index, line in enumerate(subtitle_lines):
         text += f'<text class="node-sub {"core-text" if box.node_type == "center" else ""}" x="{box.cx}" y="{first_y + line_index * (body_font + 8)}" text-anchor="middle" style="font-size:{body_font}px">{esc(line)}</text>'
-    return f'<g data-role="node" data-node-id="{esc(box.node_id)}" data-slot="{box.slot}" data-type="{box.node_type}">{shape}{text}</g>'
+    return (f'<g data-role="node" data-node-id="{esc(box.node_id)}" data-slot="{box.slot}" '
+            f'data-type="{box.node_type}" data-evidence-id="{esc(box.evidence_id)}" '
+            f'data-status="{esc(box.status)}">{shape}{text}</g>')
 
 
 def render(spec: dict[str, Any], boxes: dict[str, Box], theme: str) -> str:
@@ -338,7 +381,12 @@ def render(spec: dict[str, Any], boxes: dict[str, Box], theme: str) -> str:
         kind = relation.get("kind", "strong")
         path, point, _ = route_geometry(boxes[relation["source"]], boxes[relation["target"]], relation.get("route", "direct"), relation.get("bend", 0))
         marker = "" if kind == "weak" else f' marker-end="url(#arrow-{kind})"'
-        edges.append(f'<path class="edge {kind}" data-source="{esc(relation["source"])}" data-target="{esc(relation["target"])}" d="{path}"{marker}/>')
+        edges.append(
+            f'<path class="edge {kind}" data-source="{esc(relation["source"])}" '
+            f'data-target="{esc(relation["target"])}" '
+            f'data-evidence-id="{esc(relation["evidence_id"])}" '
+            f'data-status="{esc(relation.get("status", "explicit"))}" d="{path}"{marker}/>'
+        )
         if kind != "weak" or relation.get("show_label", True):
             lx, ly = point(relation.get("label_at", 0.5))
             label_width = max(82, visual_units(relation["label"]) * FONT["edge"] + 28)

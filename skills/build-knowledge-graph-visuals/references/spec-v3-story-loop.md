@@ -38,17 +38,27 @@ The slot names are semantic reading positions, not arbitrary coordinates. Leave 
   "reading_guide": "如何读图",
   "footer": "可独立传播的判断",
   "source_note": "来源与推断声明",
-  "center": {"id": "core", "title": "中心判断", "subtitle": "结果｜复利"},
+  "evidence": [{
+    "id": "lesson-01-p12", "source": "课程第 01 讲", "locator": "第 12 段"
+  }],
+  "center": {
+    "id": "core", "title": "中心判断", "subtitle": "结果｜复利",
+    "evidence_id": "lesson-01-p12"
+  },
   "nodes": [{
     "id": "problem", "slot": "premise-left", "type": "problem",
-    "title": "真实问题", "subtitle": "具体表现｜造成的后果"
+    "title": "真实问题", "subtitle": "具体表现｜造成的后果",
+    "evidence_id": "lesson-01-p12"
   }],
   "relations": [{
     "source": "problem", "target": "core", "label": "暴露",
-    "kind": "strong", "route": "left-rail", "label_at": 0.72, "bend": 0
+    "kind": "strong", "route": "left-rail", "label_at": 0.72, "bend": 0,
+    "evidence_id": "lesson-01-p12", "status": "explicit"
   }]
 }
 ```
+
+`evidence` is required. Every center, node, and relation references a valid `evidence_id`. `status` may be `explicit`, `inferred`, or `disputed`; omitted values default to `explicit`.
 
 ## Commands
 

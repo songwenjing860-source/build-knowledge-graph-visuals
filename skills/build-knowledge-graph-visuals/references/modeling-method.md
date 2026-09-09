@@ -47,7 +47,7 @@
 - 副标题只解释“它是什么”，不塞入完整段落。
 - 文章标题不是天然节点；只有承担知识语义时才保留。
 
-每个候选节点必须记录来源：文章编号、段落或原句。没有证据的节点标记为 `inferred`，不得伪装成原文结论。
+每个候选节点必须记录来源：文章编号、段落或原句。把来源写入 JSON 的 `evidence` 注册表，并用 `evidence_id` 关联节点和关系。没有直接证据的编辑综合必须标记为 `inferred`，不得伪装成原文结论。
 
 ## 3. 归一化与去重
 
@@ -156,12 +156,16 @@ priority = reader_value + structural_value + evidence_strength - duplication_cos
 - viewing: direct | zoomable
 
 ## 节点
-| id | label | subtitle | type | priority | source | status |
+| id | label | subtitle | type | priority | evidence_id | status |
 |---|---|---|---|---:|---|---|
 
 ## 关系
-| source | relation | target | strength | evidence | status |
+| source | relation | target | strength | evidence_id | status |
 |---|---|---|---|---|---|
+
+## 证据注册表
+| evidence_id | source | locator | excerpt |
+|---|---|---|---|
 
 ## 删除项
 | candidate | reason |
@@ -177,6 +181,7 @@ priority = reader_value + structural_value + evidence_strength - duplication_cos
 
 - 中心命题覆盖：核心节点是否共同支撑中心命题？
 - 证据覆盖：所有强关系是否有原文证据或明确推断声明？
+- 引用完整性：每个节点和关系的 `evidence_id` 是否存在于证据注册表？
 - 孤立节点：必须为 0；否则删除或补充真实关系。
 - 重复节点：必须为 0。
 - 装饰边：必须为 0。

@@ -6,60 +6,55 @@
   "reading_guide": "中心是交付目标，第一圈是四个必要阶段，外圈是各阶段的质量闸门。",
   "footer": "稳定的知识图谱不是每次重新设计，而是让内容变化、视觉系统保持不变。",
   "source_note": "示例：build-knowledge-graph-visuals v2 方法图。",
+  "evidence": [
+    {"id": "ev-model", "source": "references/modeling-method.md", "locator": "知识建模方法"},
+    {"id": "ev-structure", "source": "references/adversarial-review.md", "locator": "替代结构攻击"},
+    {"id": "ev-render", "source": "references/spec-v2.md", "locator": "Version 2 graph specification"},
+    {"id": "ev-theme", "source": "references/theme-system.md", "locator": "双主题与竖版视觉系统"},
+    {"id": "ev-qa", "source": "references/qa-checklist.md", "locator": "渲染与交付 QA"},
+    {"id": "ev-test", "source": "scripts/self_test.py", "locator": "确定性回归测试"}
+  ],
   "center": {
-    "id": "core",
-    "title": "可验证知识图谱",
-    "subtitle": "关系成立 · 视觉稳定 · 可编辑交付"
+    "id": "core", "title": "可验证知识图谱", "subtitle": "关系成立 · 视觉稳定 · 可编辑交付",
+    "evidence_id": "ev-model"
   },
   "groups": [
     {
-      "id": "model",
-      "label": "内容建模",
-      "color": "blue",
-      "relation": "先建立",
-      "primary": {"id": "evidence", "title": "证据化建模", "subtitle": "节点和关系都能回到原文"},
+      "id": "model", "label": "内容建模", "color": "blue", "relation": "先建立", "evidence_id": "ev-model",
+      "primary": {"id": "evidence", "title": "证据化建模", "subtitle": "节点和关系都能回到原文", "evidence_id": "ev-model"},
       "satellites": [
-        {"id": "atomic", "title": "原子节点", "subtitle": "对象而不是目录标题"},
-        {"id": "verbs", "title": "关系动词", "subtitle": "能够读成完整判断"}
+        {"id": "atomic", "title": "原子节点", "subtitle": "对象而不是目录标题", "evidence_id": "ev-model"},
+        {"id": "verbs", "title": "关系动词", "subtitle": "能够读成完整判断", "evidence_id": "ev-model"}
       ]
     },
     {
-      "id": "select",
-      "label": "结构选择",
-      "color": "green",
-      "relation": "决定",
-      "primary": {"id": "gate", "title": "结构闸门", "subtitle": "图谱、流程、层级或矩阵"},
+      "id": "select", "label": "结构选择", "color": "green", "relation": "决定", "evidence_id": "ev-structure",
+      "primary": {"id": "gate", "title": "结构闸门", "subtitle": "图谱、流程、层级或矩阵", "evidence_id": "ev-structure"},
       "satellites": [
-        {"id": "cross", "title": "交叉关系", "subtitle": "至少三条且有学习价值"},
-        {"id": "split", "title": "主动拆图", "subtitle": "主线竞争时拒绝硬塞"}
+        {"id": "cross", "title": "交叉关系", "subtitle": "至少三条且有学习价值", "evidence_id": "ev-structure"},
+        {"id": "split", "title": "主动拆图", "subtitle": "主线竞争时拒绝硬塞", "evidence_id": "ev-structure"}
       ]
     },
     {
-      "id": "render",
-      "label": "确定渲染",
-      "color": "violet",
-      "relation": "生成",
-      "primary": {"id": "template", "title": "固定布局档案", "subtitle": "脚本拥有几何与配色"},
+      "id": "render", "label": "确定渲染", "color": "violet", "relation": "生成", "evidence_id": "ev-render",
+      "primary": {"id": "template", "title": "固定布局档案", "subtitle": "脚本拥有几何与配色", "evidence_id": "ev-render"},
       "satellites": [
-        {"id": "themes", "title": "双主题同构", "subtitle": "只切换主题变量"},
-        {"id": "profiles", "title": "两种密度", "subtitle": "poster 与 mobile 分离"}
+        {"id": "themes", "title": "双主题同构", "subtitle": "只切换主题变量", "evidence_id": "ev-theme"},
+        {"id": "profiles", "title": "两种密度", "subtitle": "poster 与 mobile 分离", "evidence_id": "ev-theme"}
       ]
     },
     {
-      "id": "verify",
-      "label": "质量验证",
-      "color": "amber",
-      "relation": "必须通过",
-      "primary": {"id": "qa", "title": "可执行 QA", "subtitle": "失败即停止而不是口头通过"},
+      "id": "verify", "label": "质量验证", "color": "amber", "relation": "必须通过", "evidence_id": "ev-qa",
+      "primary": {"id": "qa", "title": "可执行 QA", "subtitle": "失败即停止而不是口头通过", "evidence_id": "ev-qa"},
       "satellites": [
-        {"id": "collision", "title": "碰撞检查", "subtitle": "节点与安全区自动验证"},
-        {"id": "regression", "title": "回归样例", "subtitle": "真实失败案例持续复测"}
+        {"id": "collision", "title": "碰撞检查", "subtitle": "节点与安全区自动验证", "evidence_id": "ev-qa"},
+        {"id": "regression", "title": "回归样例", "subtitle": "真实失败案例持续复测", "evidence_id": "ev-test"}
       ]
     }
   ],
   "relations": [
-    {"source": "evidence", "target": "gate", "label": "提供结构依据", "strength": "strong", "bend": 45},
-    {"source": "template", "target": "qa", "label": "接受验证", "strength": "strong", "bend": 45},
-    {"source": "qa", "target": "evidence", "label": "暴露问题", "strength": "weak", "bend": -90}
+    {"source": "evidence", "target": "gate", "label": "提供结构依据", "strength": "strong", "bend": 45, "evidence_id": "ev-structure"},
+    {"source": "template", "target": "qa", "label": "接受验证", "strength": "strong", "bend": 45, "evidence_id": "ev-qa"},
+    {"source": "qa", "target": "evidence", "label": "暴露问题", "strength": "weak", "bend": -90, "evidence_id": "ev-qa"}
   ]
 }

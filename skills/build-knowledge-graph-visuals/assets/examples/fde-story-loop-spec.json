@@ -6,85 +6,92 @@
   "reading_guide": "上方解释为何现在；中部沿顺时针闭环；下方辨真伪、看约束与成立条件。",
   "footer": "FDE 的稀缺性，不在驻场，而在把不可规模化的探索变成产品复利。",
   "source_note": "来源：用户提供的 FDE 认知篇 01—04；推断关系已在规格中标明。",
+  "evidence": [
+    {"id": "fde-01", "source": "FDE 认知篇 01", "locator": "角色内核与 AI 落地鸿沟"},
+    {"id": "fde-02", "source": "FDE 认知篇 02", "locator": "AI 时代的个体杠杆与真问题定义"},
+    {"id": "fde-03", "source": "FDE 认知篇 03", "locator": "产品化、业务结果与真假 FDE 检验"},
+    {"id": "fde-04", "source": "FDE 认知篇 04", "locator": "中国 2B 约束与模式成立条件"}
+  ],
   "center": {
     "id": "core",
     "title": "FDE 产品探索闭环",
-    "subtitle": "嵌入现场 · 交付结果｜沉淀产品 · 形成复利"
+    "subtitle": "嵌入现场 · 交付结果｜沉淀产品 · 形成复利",
+    "evidence_id": "fde-03"
   },
   "nodes": [
     {
       "id": "ai-gap", "slot": "premise-left", "type": "problem",
-      "title": "AI 落地鸿沟", "subtitle": "模型能力不等于真实流程中的业务价值"
+      "title": "AI 落地鸿沟", "subtitle": "模型能力不等于真实流程中的业务价值", "evidence_id": "fde-01"
     },
     {
       "id": "ai-leverage", "slot": "premise-right", "type": "mechanism",
-      "title": "AI 个体增益", "subtitle": "一人开始贯通需求、代码与产品"
+      "title": "AI 个体增益", "subtitle": "一人开始贯通需求、代码与产品", "evidence_id": "fde-02"
     },
     {
       "id": "embed", "slot": "trigger-left", "type": "mechanism",
-      "title": "嵌入真实工作流", "subtitle": "看流程、数据与权限｜补上文档外隐性规则"
+      "title": "嵌入真实工作流", "subtitle": "看流程、数据与权限｜补上文档外隐性规则", "evidence_id": "fde-01"
     },
     {
       "id": "define", "slot": "trigger-right", "type": "action",
-      "title": "主动定义真问题", "subtitle": "判断做什么｜以及值不值得做"
+      "title": "主动定义真问题", "subtitle": "判断做什么｜以及值不值得做", "evidence_id": "fde-02"
     },
     {
       "id": "role-end", "slot": "role-left", "type": "boundary",
-      "title": "传统角色的终点", "subtitle": "咨询交认知｜外包交工时｜实施交上线"
+      "title": "传统角色的终点", "subtitle": "咨询交认知｜外包交工时｜实施交上线", "evidence_id": "fde-01"
     },
     {
       "id": "production", "slot": "role-right", "type": "action",
-      "title": "写进生产系统", "subtitle": "构建产品尚不具备的能力｜不是配置演示"
+      "title": "写进生产系统", "subtitle": "构建产品尚不具备的能力｜不是配置演示", "evidence_id": "fde-03"
     },
     {
       "id": "reuse", "slot": "outcome-left", "type": "validation",
-      "title": "跨客户复用", "subtitle": "项目越做越轻｜同类问题不再从零开始"
+      "title": "跨客户复用", "subtitle": "项目越做越轻｜同类问题不再从零开始", "evidence_id": "fde-03"
     },
     {
       "id": "deliver", "slot": "outcome-right", "type": "constraint",
-      "title": "交付业务结果", "subtitle": "用可衡量改善验收｜而非工时与代码量"
+      "title": "交付业务结果", "subtitle": "用可衡量改善验收｜而非工时与代码量", "evidence_id": "fde-03"
     },
     {
       "id": "productize", "slot": "synthesis-center", "type": "mechanism",
-      "title": "认知沉淀进产品", "subtitle": "把单客户验证的经验｜转成所有客户可用的能力"
+      "title": "认知沉淀进产品", "subtitle": "把单客户验证的经验｜转成所有客户可用的能力", "evidence_id": "fde-03"
     },
     {
       "id": "hard-test", "slot": "test-left", "type": "validation",
-      "title": "真假 FDE 硬检验", "subtitle": "经验进产品了吗？｜第二个客户更容易了吗？"
+      "title": "真假 FDE 硬检验", "subtitle": "经验进产品了吗？｜第二个客户更容易了吗？", "evidence_id": "fde-03"
     },
     {
       "id": "outsourcing", "slot": "test-right", "type": "problem",
-      "title": "高效高级外包", "subtitle": "AI 加快单客定制｜却未改变交付性质"
+      "title": "高效高级外包", "subtitle": "AI 加快单客定制｜却未改变交付性质", "evidence_id": "fde-03"
     },
     {
       "id": "china-mismatch", "slot": "context-left", "type": "constraint",
-      "title": "中国 2B 结构错配", "subtitle": "标准软件撞上非标准流程｜风险责任同步错配"
+      "title": "中国 2B 结构错配", "subtitle": "标准软件撞上非标准流程｜风险责任同步错配", "evidence_id": "fde-04"
     },
     {
       "id": "china-six", "slot": "context-right", "type": "boundary",
-      "title": "中国落地六道坎", "subtitle": "利润｜人才｜晋升｜抽象｜组织｜市场"
+      "title": "中国落地六道坎", "subtitle": "利润｜人才｜晋升｜抽象｜组织｜市场", "evidence_id": "fde-04"
     },
     {
       "id": "conditions", "slot": "condition-center", "type": "constraint",
-      "title": "模式成立条件", "subtitle": "高价值场景｜效果付费｜充分授权｜抽象复用"
+      "title": "模式成立条件", "subtitle": "高价值场景｜效果付费｜充分授权｜抽象复用", "evidence_id": "fde-04"
     }
   ],
   "relations": [
-    {"source": "ai-gap", "target": "embed", "label": "点燃需求", "kind": "constraint", "route": "direct", "label_at": 0.5},
-    {"source": "ai-leverage", "target": "define", "label": "解锁闭环", "kind": "strong", "route": "direct", "label_at": 0.5},
-    {"source": "embed", "target": "define", "label": "暴露", "kind": "strong", "route": "direct", "label_at": 0.5},
-    {"source": "define", "target": "production", "label": "指导", "kind": "strong", "route": "direct", "label_at": 0.58, "bend": -45},
-    {"source": "production", "target": "deliver", "label": "兑现", "kind": "constraint", "route": "direct", "label_at": 0.48},
-    {"source": "deliver", "target": "productize", "label": "验证", "kind": "strong", "route": "direct", "label_at": 0.5},
-    {"source": "reuse", "target": "productize", "label": "形成", "kind": "strong", "route": "direct", "label_at": 0.5},
-    {"source": "productize", "target": "hard-test", "label": "决定能否通过", "kind": "constraint", "route": "direct", "label_at": 0.54},
-    {"source": "hard-test", "target": "china-mismatch", "label": "要求贴近现场", "kind": "constraint", "route": "direct", "label_at": 0.5},
-    {"source": "outsourcing", "target": "china-six", "label": "未通过", "kind": "weak", "route": "direct", "label_at": 0.5},
-    {"source": "china-mismatch", "target": "conditions", "label": "约束", "kind": "constraint", "route": "direct", "label_at": 0.45},
-    {"source": "china-six", "target": "conditions", "label": "支撑成立", "kind": "constraint", "route": "direct", "label_at": 0.55},
-    {"source": "role-end", "target": "core", "label": "由责任区分", "kind": "strong", "route": "direct", "label_at": 0.65, "bend": 30},
-    {"source": "conditions", "target": "core", "label": "成立条件", "kind": "constraint", "route": "left-rail", "label_at": 0.84},
-    {"source": "ai-leverage", "target": "core", "label": "放大个体", "kind": "weak", "route": "right-rail", "label_at": 0.72},
-    {"source": "ai-gap", "target": "core", "label": "暴露鸿沟", "kind": "weak", "route": "left-rail", "label_at": 0.72}
+    {"source": "ai-gap", "target": "embed", "label": "点燃需求", "kind": "constraint", "route": "direct", "label_at": 0.5, "evidence_id": "fde-01"},
+    {"source": "ai-leverage", "target": "define", "label": "解锁闭环", "kind": "strong", "route": "direct", "label_at": 0.5, "evidence_id": "fde-02"},
+    {"source": "embed", "target": "define", "label": "暴露", "kind": "strong", "route": "direct", "label_at": 0.5, "evidence_id": "fde-02"},
+    {"source": "define", "target": "production", "label": "指导", "kind": "strong", "route": "direct", "label_at": 0.58, "bend": -45, "evidence_id": "fde-03"},
+    {"source": "production", "target": "deliver", "label": "兑现", "kind": "constraint", "route": "direct", "label_at": 0.48, "evidence_id": "fde-03"},
+    {"source": "deliver", "target": "productize", "label": "验证", "kind": "strong", "route": "direct", "label_at": 0.5, "evidence_id": "fde-03"},
+    {"source": "reuse", "target": "productize", "label": "形成", "kind": "strong", "route": "direct", "label_at": 0.5, "evidence_id": "fde-03"},
+    {"source": "productize", "target": "hard-test", "label": "决定能否通过", "kind": "constraint", "route": "direct", "label_at": 0.54, "evidence_id": "fde-03"},
+    {"source": "hard-test", "target": "china-mismatch", "label": "要求贴近现场", "kind": "constraint", "route": "direct", "label_at": 0.5, "evidence_id": "fde-04"},
+    {"source": "outsourcing", "target": "china-six", "label": "未通过", "kind": "weak", "route": "direct", "label_at": 0.5, "evidence_id": "fde-04"},
+    {"source": "china-mismatch", "target": "conditions", "label": "约束", "kind": "constraint", "route": "direct", "label_at": 0.45, "evidence_id": "fde-04"},
+    {"source": "china-six", "target": "conditions", "label": "支撑成立", "kind": "constraint", "route": "direct", "label_at": 0.55, "evidence_id": "fde-04"},
+    {"source": "role-end", "target": "core", "label": "由责任区分", "kind": "strong", "route": "direct", "label_at": 0.65, "bend": 30, "evidence_id": "fde-01"},
+    {"source": "conditions", "target": "core", "label": "成立条件", "kind": "constraint", "route": "left-rail", "label_at": 0.84, "evidence_id": "fde-04"},
+    {"source": "ai-leverage", "target": "core", "label": "放大个体", "kind": "weak", "route": "right-rail", "label_at": 0.72, "evidence_id": "fde-02", "status": "inferred"},
+    {"source": "ai-gap", "target": "core", "label": "暴露鸿沟", "kind": "weak", "route": "left-rail", "label_at": 0.72, "evidence_id": "fde-01", "status": "inferred"}
   ]
 }

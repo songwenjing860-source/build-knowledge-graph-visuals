@@ -6,34 +6,39 @@
   "reading_guide": "中心是核心判断，第一圈是三个模块，外圈是每个模块的关键检验。",
   "footer": "手机直读依靠删减，而不是无限缩小字号。",
   "source_note": "示例：mobile-radial 最大密度回归。",
-  "center": {"id": "core", "title": "核心判断", "subtitle": "稳定关系与清晰层级"},
+  "evidence": [
+    {"id": "ev-model", "source": "references/modeling-method.md", "locator": "知识建模方法"},
+    {"id": "ev-layout", "source": "references/theme-system.md", "locator": "mobile-radial"},
+    {"id": "ev-qa", "source": "references/qa-checklist.md", "locator": "移动端必过项"}
+  ],
+  "center": {"id": "core", "title": "核心判断", "subtitle": "稳定关系与清晰层级", "evidence_id": "ev-model"},
   "groups": [
     {
-      "id": "model", "label": "内容建模", "color": "blue", "relation": "先建立",
-      "primary": {"id": "evidence", "title": "证据关系", "subtitle": "节点与边都能回到原文"},
+      "id": "model", "label": "内容建模", "color": "blue", "relation": "先建立", "evidence_id": "ev-model",
+      "primary": {"id": "evidence", "title": "证据关系", "subtitle": "节点与边都能回到原文", "evidence_id": "ev-model"},
       "satellites": [
-        {"id": "node", "title": "原子节点", "subtitle": "不是目录标题"},
-        {"id": "edge", "title": "明确关系", "subtitle": "不是装饰连线"}
+        {"id": "node", "title": "原子节点", "subtitle": "不是目录标题", "evidence_id": "ev-model"},
+        {"id": "edge", "title": "明确关系", "subtitle": "不是装饰连线", "evidence_id": "ev-model"}
       ]
     },
     {
-      "id": "layout", "label": "结构布局", "color": "green", "relation": "决定",
-      "primary": {"id": "profile", "title": "严格档案", "subtitle": "中心、环层和槽位固定"},
+      "id": "layout", "label": "结构布局", "color": "green", "relation": "决定", "bend": -160, "evidence_id": "ev-layout",
+      "primary": {"id": "profile", "title": "严格档案", "subtitle": "中心、环层和槽位固定", "evidence_id": "ev-layout"},
       "satellites": [
-        {"id": "group", "title": "语义分组", "subtitle": "类型与颜色一致"},
-        {"id": "limit", "title": "密度限制", "subtitle": "超限时主动拆图"}
+        {"id": "group", "title": "语义分组", "subtitle": "类型与颜色一致", "evidence_id": "ev-layout"},
+        {"id": "limit", "title": "密度限制", "subtitle": "超限时主动拆图", "evidence_id": "ev-layout"}
       ]
     },
     {
-      "id": "verify", "label": "质量验证", "color": "amber", "relation": "必须通过",
-      "primary": {"id": "qa", "title": "自动 QA", "subtitle": "碰撞与安全区硬检查"},
+      "id": "verify", "label": "质量验证", "color": "amber", "relation": "必须通过", "bend": 160, "evidence_id": "ev-qa",
+      "primary": {"id": "qa", "title": "自动 QA", "subtitle": "碰撞与安全区硬检查", "evidence_id": "ev-qa"},
       "satellites": [
-        {"id": "themes", "title": "双主题", "subtitle": "内容与几何同构"},
-        {"id": "preview", "title": "实际预览", "subtitle": "按目标宽度检查"}
+        {"id": "themes", "title": "双主题", "subtitle": "内容与几何同构", "evidence_id": "ev-qa"},
+        {"id": "preview", "title": "实际预览", "subtitle": "按目标宽度检查", "evidence_id": "ev-qa"}
       ]
     }
   ],
   "relations": [
-    {"source": "profile", "target": "qa", "label": "接受验证", "strength": "strong", "bend": 55}
+    {"source": "profile", "target": "qa", "label": "接受验证", "strength": "strong", "bend": 55, "evidence_id": "ev-qa"}
   ]
 }
