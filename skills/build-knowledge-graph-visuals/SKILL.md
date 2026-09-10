@@ -21,6 +21,7 @@ description: 从中文课程文章、技术专栏、访谈材料、文档或章�
 
 - 课程章节图默认先读 `references/course-reference-style.md`，实际查看其中一组黑白成品；这是首选视觉标杆。
 - 建模前读 `references/modeling-method.md`。
+- 节点文案定稿前读 `references/text-budget.md`；默认采用复习提示密度，每框一个知识点，解释最多两行。
 - 径向图读 `references/spec-v2.md`。
 - 高密度双列叙事图读 `references/spec-v3-story-loop.md`。
 - 选择版型和配色时读 `references/theme-system.md`。
@@ -36,7 +37,7 @@ description: 从中文课程文章、技术专栏、访谈材料、文档或章�
 写清读者看完后要回答什么、用于导航还是复习、是否允许缩放。
 
 - `compact`：概念导航，保留 8–15 个节点。
-- `comprehensive`：完整课程论证，必须包含具体机制、反例、检验和约束，而不是泛化标题。
+- `comprehensive`：整张图按材料需要覆盖具体机制、反例、检验和约束；每框仍遵守文字预算，不要求每框包含全部要素。完整细节保存在配套知识清单中。
 
 ### 2. 选择能表达内容的 profile
 
@@ -59,6 +60,8 @@ description: 从中文课程文章、技术专栏、访谈材料、文档或章�
 - `insufficient-evidence`：材料不足，需要补充或标注推断。
 
 ### 4. 生成并验证
+
+生成前按 `references/text-budget.md` 核对标题、解释行数及字数；先压缩重复表达，保留否定、条件和边界。模板允许容纳的最大字数不等于推荐文案长度，不能靠缩小字号塞进正文。
 
 径向模式：
 
