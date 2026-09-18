@@ -501,7 +501,9 @@ def node_svg(box: Box, font: dict[str, int]) -> str:
     body_size = font["body"]
     if box.role == "center":
         shape = (f'<circle class="node-shape center-shape" cx="{box.cx:.1f}" cy="{box.cy:.1f}" '
-                 f'r="{box.width / 2:.1f}"/>')
+                 f'r="{box.width / 2:.1f}"/>'
+                 f'<circle class="center-inner" cx="{box.cx:.1f}" cy="{box.cy:.1f}" '
+                 f'r="{box.width * .42:.1f}"/>')
     else:
         shape = (f'<rect class="node-shape {role_class}-shape color-{box.color}" x="{box.x:.1f}" y="{box.y:.1f}" '
                  f'width="{box.width:.1f}" height="{box.height:.1f}" rx="{34 if box.role == "primary" else 27}"/>')
@@ -569,6 +571,12 @@ def render_svg(spec: dict[str, Any], profile: dict[str, Any], boxes: dict[str, B
       .color-blue {{ fill:url(#blue); }} .color-green {{ fill:url(#green); }}
       .color-amber {{ fill:url(#amber); }} .color-violet {{ fill:url(#violet); }}
       .color-rose {{ fill:url(#rose); }}
+      .satellite-shape.color-blue {{ fill:#eff6ff; }}
+      .satellite-shape.color-green {{ fill:#ecfdf5; }}
+      .satellite-shape.color-amber {{ fill:#fff7ed; }}
+      .satellite-shape.color-violet {{ fill:#f5f3ff; }}
+      .satellite-shape.color-rose {{ fill:#fdf2f8; }}
+      .center-inner {{ fill:#312e81; opacity:.42; pointer-events:none; }}
       .center-shape {{ fill:url(#core); stroke:{("#e0f2fe" if dark else "#ffffff")}; stroke-width:5; filter:url(#shadow); }}
       .node-title {{ fill:#0f172a; font-weight:900; }}
       .node-sub {{ fill:#334155; font-weight:550; }}

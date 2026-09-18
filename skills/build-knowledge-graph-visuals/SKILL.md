@@ -21,7 +21,7 @@ description: 从中文课程文章、技术专栏、访谈材料、文档或章�
 
 - 课程章节图默认先读 `references/course-reference-style.md`，实际查看其中一组黑白成品；这是首选视觉标杆。
 - 建模前读 `references/modeling-method.md`。
-- 节点文案定稿前读 `references/text-budget.md`；默认采用复习提示密度，每框一个知识点，解释最多两行。
+- 节点文案定稿前读 `references/text-budget.md`；小字只抽取简洁关键词或短语，用于复习与串联，不限定两行，不写微型摘要。
 - 径向图读 `references/spec-v2.md`。
 - 高密度双列叙事图读 `references/spec-v3-story-loop.md`。
 - 选择版型和配色时读 `references/theme-system.md`。
@@ -37,7 +37,7 @@ description: 从中文课程文章、技术专栏、访谈材料、文档或章�
 写清读者看完后要回答什么、用于导航还是复习、是否允许缩放。
 
 - `compact`：概念导航，保留 8–15 个节点。
-- `comprehensive`：整张图按材料需要覆盖具体机制、反例、检验和约束；每框仍遵守文字预算，不要求每框包含全部要素。完整细节保存在配套知识清单中。
+- `comprehensive`：保留完整的关键知识结构，小字仍只选记忆线索；机制、反例、检验和约束按复习需要取舍，完整讲解保存在配套知识清单中。
 
 ### 2. 选择能表达内容的 profile
 
@@ -61,7 +61,7 @@ description: 从中文课程文章、技术专栏、访谈材料、文档或章�
 
 ### 4. 生成并验证
 
-生成前按 `references/text-budget.md` 核对标题、解释行数及字数；先压缩重复表达，保留否定、条件和边界。模板允许容纳的最大字数不等于推荐文案长度，不能靠缩小字号塞进正文。
+生成前按 `references/text-budget.md` 选择关键词；分别审核知识结构是否完整、小字是否简洁。保留关键否定、条件和边界，不以固定行数验收，不靠缩小字号塞正文。
 
 径向模式：
 
