@@ -66,9 +66,10 @@ Use this schema with `scripts/build_graph.py`. The JSON is the source of truth f
 
 - Canvas: `1800 × 2600`; 5–6 groups or any group with 3 satellites uses `1800 × 2800` and dedicated slots.
 - Groups: 3–6.
-- Satellites per group: 0–3.
-- Total nodes including center: at most 25.
+- Satellites per group: 0–5.
+- Total nodes including center: at most 40; six groups with five satellites each yield 37.
 - Six-group executable fixture: `assets/examples/six-module-spec.json`.
+- Any group with 4–5 satellites selects the 1800 × 3400 dense layout. Fonts remain unchanged. Satellite curves choose the first collision-free bend deterministically; cross-relations still require validation.
 - Cross-relations: at most 5.
 - Use for course pages and deep-review posters where readers may zoom.
 

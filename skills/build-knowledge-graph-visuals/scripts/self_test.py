@@ -127,18 +127,26 @@ def main() -> int:
                             "subtitle": "机制 · 方法", "evidence_id": "ev-model"},
                 "satellites": [{"id": f"s{index}{j}", "title": f"知识{j}",
                                 "subtitle": "关键词 · 提示", "evidence_id": "ev-model"}
-                               for j in range(3)]})
+                               for j in range(5)]})
         profile = build_graph.validate_spec(spec)
         boxes = build_graph.layout(spec, profile)
         build_graph.validate_layout(boxes, profile)
         build_graph.validate_relation_routes(spec, boxes, profile)
-        assert len(boxes) == 1 + count * 4
+        assert len(boxes) == 1 + count * 6
         core = boxes[spec["center"]["id"]]
         for group in spec["groups"]:
             x, y = build_graph.clip_to_box(core, boxes[group["primary"]["id"]])
             assert abs(build_graph.math.hypot(x - core.cx, y - core.cy) - core.width / 2) < .001
         assert build_graph.PROFILES["poster-radial"]["height"] == 2600
         print(f"PASS: poster {count} groups at full satellite capacity")
+        excessive = deepcopy(spec)
+        excessive["groups"][0]["satellites"].append({"id": "over-capacity"})
+        try:
+            build_graph.validate_spec(excessive)
+        except ValueError as exc:
+            assert "at most 5" in str(exc)
+        else:
+            raise AssertionError("six satellites were accepted")
     for fixture in fixtures:
         exercise(fixture)
         print(f"PASS: {fixture.name}")

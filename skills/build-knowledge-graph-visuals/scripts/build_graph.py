@@ -40,8 +40,8 @@ PROFILES = {
         "satellite_size": (270, 104),
         "core_radius": 205,
         "max_groups": 6,
-        "max_satellites": 3,
-        "max_nodes": 25,
+        "max_satellites": 5,
+        "max_nodes": 40,
         "header_bottom": 340,
         "footer_top": 2260,
         "margin": 42,
@@ -155,11 +155,15 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
     groups = spec.get("groups")
     expanded = (isinstance(groups, list) and (len(groups) >= 5 or any(
         isinstance(group, dict) and isinstance(group.get("satellites"), list)
-        and len(group["satellites"]) == 3 for group in groups)))
+        and len(group["satellites"]) >= 3 for group in groups)))
     if profile_name == "poster-radial" and expanded:
         profile.update(height=2800, center=(900, 1450),
                        primary_radius=(570, 800), satellite_radius=(780, 1030),
                        footer_top=2590, expanded=True)
+        if any(len(group.get("satellites", [])) > 3 for group in groups if isinstance(group, dict)):
+            profile.update(height=3400, center=(900, 1700),
+                           primary_radius=(570, 1100), satellite_radius=(780, 1340),
+                           footer_top=3220, dense=True)
     evidence_ids = validate_evidence(spec)
     require_text(spec.get("title"), "title", 32)
     require_text(spec.get("subtitle"), "subtitle", 54)
@@ -295,6 +299,17 @@ def layout(spec: dict[str, Any], profile: dict[str, Any]) -> dict[str, Box]:
             [(200, 1940), (410, 2080), (200, 1420)],
             [(200, 1160), (220, 780), (590, 800)],
         ]
+        if profile.get("dense"):
+            primary_slots = [(900, 700), (1390, 1100), (1390, 2200),
+                             (900, 2850), (410, 2200), (410, 1100)]
+            satellite_slots = [
+                [(900, 420), (600, 450), (1200, 450), (300, 600), (1500, 600)],
+                [(1200, 870), (1580, 850), (1600, 1260), (1580, 1400), (1400, 1550)],
+                [(1400, 1800), (1580, 2000), (1600, 2360), (1580, 2500), (1200, 2500)],
+                [(900, 3130), (1200, 3100), (600, 3100), (1500, 2970), (300, 2970)],
+                [(400, 1800), (220, 2000), (200, 2360), (220, 2500), (600, 2500)],
+                [(600, 870), (220, 850), (200, 1260), (220, 1400), (400, 1550)],
+            ]
         px, py = primary_slots[slot_index] if six_poster else polar(cx, cy, *profile["primary_radius"], angle)
         pw, ph = profile["primary_size"]
         primary = group["primary"]
@@ -310,7 +325,9 @@ def layout(spec: dict[str, Any], profile: dict[str, Any]) -> dict[str, Box]:
             # the portrait canvas cannot create enough radial separation at
             # the left/right cardinal slots. Tangential offsets are stable and
             # keep the primary visually dominant.
-            if count == 1:
+            if six_poster:
+                offsets = [0] * count
+            elif count == 1:
                 offsets = [30]
             elif count == 2:
                 offsets = [-27, 27]
@@ -374,7 +391,7 @@ def point_in_box(point: tuple[float, float], box: Box, padding: float = 16) -> b
             and box.y - padding <= point[1] <= box.y + box.height + padding)
 
 
-def graph_edges(spec: dict[str, Any]) -> list[dict[str, Any]]:
+def graph_edges(spec: dict[str, Any], boxes: dict[str, Box] | None = None) -> list[dict[str, Any]]:
     edges: list[dict[str, Any]] = []
     center_id = spec["center"]["id"]
     for group in spec["groups"]:
@@ -402,12 +419,24 @@ def graph_edges(spec: dict[str, Any]) -> list[dict[str, Any]]:
             })
     for index, relation in enumerate(spec.get("relations", [])):
         edges.append({**relation, "field": f"relations[{index}]"})
+    if boxes is not None:
+        for edge in edges:
+            if not edge["field"].startswith("satellite["):
+                continue
+            source, target = boxes[edge["source"]], boxes[edge["target"]]
+            others = [box for box in boxes.values() if box.node_id not in {source.node_id, target.node_id}]
+            for bend in (0, 40, -40, 80, -80, 120, -120, 160, -160):
+                geometry = curve_geometry(source, target, bend)
+                if not any(point_in_box(curve_point(*geometry, step / 40), box)
+                           for step in range(1, 40) for box in others):
+                    edge["bend"] = bend
+                    break
     return edges
 
 
 def validate_relation_routes(spec: dict[str, Any], boxes: dict[str, Box],
                              profile: dict[str, Any]) -> dict[int, Box]:
-    edges = graph_edges(spec)
+    edges = graph_edges(spec, boxes)
     for index, relation in enumerate(edges):
         source = boxes[relation["source"]]
         target = boxes[relation["target"]]
@@ -616,7 +645,7 @@ def render_svg(spec: dict[str, Any], profile: dict[str, Any], boxes: dict[str, B
       .source {{ fill:{muted}; font-size:{max(17, font['body'] - 3)}px; }}
     """
 
-    edge_records = graph_edges(spec)
+    edge_records = graph_edges(spec, boxes)
     label_boxes = validate_relation_routes(spec, boxes, profile)
     edges: list[str] = []
     for edge_index, relation in enumerate(edge_records):
