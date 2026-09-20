@@ -435,7 +435,13 @@ def main() -> int:
     parser.add_argument("--out-dir", type=Path, default=Path.cwd())
     parser.add_argument("--basename")
     parser.add_argument("--validate-only", action="store_true")
+    parser.add_argument("--explicit-story-request", action="store_true",
+                        help="Use only when the user explicitly requested a two-column story-loop")
     args = parser.parse_args()
+    if not args.validate_only and not args.explicit_story_request:
+        parser.error("Default output is poster-radial: use build_graph.py. "
+                     "Only an explicit user request for a two-column story-loop permits "
+                     "--explicit-story-request.")
     try:
         spec = json.loads(args.spec.read_text(encoding="utf-8"))
         boxes = validate_spec(spec)

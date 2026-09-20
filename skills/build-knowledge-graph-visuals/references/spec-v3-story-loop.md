@@ -1,6 +1,8 @@
 # Version 3 story-loop specification
 
-Use `story-loop` when the material has a dominant narrative plus feedback, tests, constraints, or return paths. It is a dense teaching poster, not a generic flowchart and not a radial taxonomy.
+Generation requires `--explicit-story-request` in addition to the spec path. Pass this only for an explicit user request; `--validate-only` remains available for regression checks without enabling generation.
+
+Use `story-loop` ONLY when the user explicitly requests this profile or a two-column narrative diagram. Narrative, feedback, tests, constraints, reading order, or return paths in the source material do not authorize this choice. Otherwise use `poster-radial`. This legacy template is excluded from default visual references.
 
 ## Shape
 

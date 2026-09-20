@@ -7,6 +7,14 @@ description: 从中文课程文章、技术专栏、访谈材料、文档或章�
 
 把课程内容转换为“可验证的知识关系 + 有明确视觉论点的稳定图谱”。稳定不等于所有内容套同一种形状；布局必须表达内容本身的结构。
 
+## 模板选择硬约束
+
+默认使用 `poster-radial`：中心圆、环绕模块、浅色外围知识点、底部总结框。文章有流程、因果、反馈或闭环，不构成更换模板的理由；用径向图中的有向关系表达。
+
+只有用户明确要求“双列叙事图”或 `story-loop` 时，才读取其专属示例并运行 `build_story_graph.py`。不得把“内容适合叙事”“希望顺序阅读”“手机长图”推断成用户选择双列模板。用户明确要求手机无需缩放时使用 `mobile-radial`，仍保留圆形中心与环绕结构。
+
+交付前记录用户选择与实际 profile；未明确选择双列却生成双列、胶囊中心或大框纵向流程，视为失败，重新使用径向模板生成。
+
 ## 核心标准
 
 - 节点是知识对象，不是目录标题；强关系有明确动词和证据，推断必须标明。
@@ -23,12 +31,12 @@ description: 从中文课程文章、技术专栏、访谈材料、文档或章�
 - 建模前读 `references/modeling-method.md`。
 - 节点文案定稿前读 `references/text-budget.md`；小字只抽取简洁关键词或短语，用于复习与串联，不限定两行，不写微型摘要。
 - 径向图读 `references/spec-v2.md`。
-- 高密度双列叙事图读 `references/spec-v3-story-loop.md`。
+- 仅在用户明确要求双列叙事图时读 `references/spec-v3-story-loop.md`。
 - 选择版型和配色时读 `references/theme-system.md`。
 - 交付前读 `references/adversarial-review.md` 与 `references/qa-checklist.md`。
 - 维护渲染器、排查校验或扩展 profile 时才读 `references/implementation-notes.md`；普通生成不要加载。
 - 技术回归样例：`assets/examples/knowledge-graph-method-spec.json`；用于验证渲染器，不代表首选成品密度。
-- 可选叙事闭环样例：`assets/examples/fde-story-loop-spec.json`；仅用于明确适合双列叙事的任务。
+- 默认不读取 `fde-story-loop-*` 示例；仅在用户明确选择双列叙事图时用作参考。
 
 ## 工作流
 
@@ -42,8 +50,8 @@ description: 从中文课程文章、技术专栏、访谈材料、文档或章�
 ### 2. 选择能表达内容的 profile
 
 - 用户认可的课程参考风格：中心渐变圆、约六个环绕核心模块、外围浅色知识节点、跨模块关系及底部总结框。课程章节复习图默认采用此空间语法，见 `references/course-reference-style.md`。这是视觉目标，不是现成的 CLI profile 名称。
-- `story-loop`：存在“为何现在 → 怎么做 → 交付什么 → 如何验证 → 哪些条件成立”的主线，且用户需要按顺序阅读时采用。
-- `poster-radial`：没有单一阅读顺序，重点是中心概念与多个对等模块的关系。
+- `story-loop`：仅由用户明确指定，不能按文稿主题自动选择。
+- `poster-radial`：默认选择；核心概念与模块环绕，流程、因果和反馈用箭头表达。
 - `mobile-radial`：用户明确要求手机无需缩放；必须主动减少节点和交叉关系。
 
 用户明确选择参考图时，以参考图的空间语法为准。`poster-radial` 已支持 3–6 个模块，每模块最多 5 个外围节点，总节点上限 40；当前六模块最多实际产生 37 节点；六模块参考 `assets/examples/six-module-spec.json`。手机直读版仍为 3–4 模块。超出容量再扩展或拆图，不删掉必要知识点以凑固定槽位。
@@ -71,12 +79,12 @@ python <skill-dir>/scripts/build_graph.py <topic>-graph-spec.json \
   --out-dir <output-dir> --basename <topic>-knowledge-graph
 ```
 
-叙事闭环：
+仅用户明确选择双列叙事图时：
 
 ```bash
 python <skill-dir>/scripts/build_story_graph.py <topic>-story-spec.json --validate-only
 python <skill-dir>/scripts/build_story_graph.py <topic>-story-spec.json \
-  --out-dir <output-dir> --basename <topic>-knowledge-graph
+  --explicit-story-request --out-dir <output-dir> --basename <topic>-knowledge-graph
 ```
 
 验证失败时缩短文案、改关系路由、删减或拆图。禁止绕过脚本手写一个无法回归的 SVG。
@@ -125,7 +133,7 @@ python <skill-dir>/scripts/make_mobile_previews.py <light.svg> --out-dir <review
 
 - 未运行所选 profile 的生成器和回归测试。
 - 综合图只有抽象标题，没有机制、反例、检验和约束。
-- 叙事内容被压成对等径向分组，或径向关系被硬拉成单一路径。
+- 未经用户明确指定而切换成双列叙事图；或把有方向的流程与因果错误表示成无方向的并列关系。
 - 标题、副文、图例或关系标签溢出、遮挡、截断。
 - 类型颜色与图例不一致，或所有节点同色导致语义层级消失。
 - 径向图用贴边长线掩盖主线竞争；`story-loop` 的 rail 没有承担真实反馈或成立条件。
