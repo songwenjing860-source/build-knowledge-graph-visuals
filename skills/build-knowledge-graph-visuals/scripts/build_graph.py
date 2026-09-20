@@ -24,6 +24,7 @@ PALETTES = {
     "amber": ("#fde68a", "#f59e0b", "#d97706"),
     "violet": ("#ddd6fe", "#a78bfa", "#7c3aed"),
     "rose": ("#fbcfe8", "#f472b6", "#db2777"),
+    "cyan": ("#a5f3fc", "#22d3ee", "#0891b2"),
 }
 
 VALID_STATUSES = {"explicit", "inferred", "disputed"}
@@ -38,9 +39,9 @@ PROFILES = {
         "primary_size": (380, 142),
         "satellite_size": (270, 104),
         "core_radius": 205,
-        "max_groups": 5,
+        "max_groups": 6,
         "max_satellites": 3,
-        "max_nodes": 21,
+        "max_nodes": 25,
         "header_bottom": 340,
         "footer_top": 2260,
         "margin": 42,
@@ -150,7 +151,15 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
     profile_name = spec.get("profile", "poster-radial")
     if profile_name not in PROFILES:
         fail(f"profile must be one of: {', '.join(PROFILES)}")
-    profile = PROFILES[profile_name]
+    profile = dict(PROFILES[profile_name])
+    groups = spec.get("groups")
+    expanded = (isinstance(groups, list) and (len(groups) >= 5 or any(
+        isinstance(group, dict) and isinstance(group.get("satellites"), list)
+        and len(group["satellites"]) == 3 for group in groups)))
+    if profile_name == "poster-radial" and expanded:
+        profile.update(height=2800, center=(900, 1450),
+                       primary_radius=(570, 800), satellite_radius=(780, 1030),
+                       footer_top=2590, expanded=True)
     evidence_ids = validate_evidence(spec)
     require_text(spec.get("title"), "title", 32)
     require_text(spec.get("subtitle"), "subtitle", 54)
@@ -273,7 +282,20 @@ def layout(spec: dict[str, Any], profile: dict[str, Any]) -> dict[str, Box]:
     step = 360 / len(groups)
     for index, group in enumerate(groups):
         angle = start_angle + index * step
-        px, py = polar(cx, cy, *profile["primary_radius"], angle)
+        six_poster = profile.get("expanded", False)
+        slot_index = {3: [0, 2, 4], 4: [0, 2, 3, 4],
+                      5: [0, 1, 2, 4, 5], 6: list(range(6))}[len(groups)][index]
+        primary_slots = [(900, 650), (1390, 950), (1390, 1720),
+                         (900, 2250), (410, 1720), (410, 950)]
+        satellite_slots = [
+            [(590, 430), (900, 420), (1210, 430)],
+            [(1210, 800), (1580, 780), (1600, 1160)],
+            [(1600, 1420), (1600, 1940), (1390, 2080)],
+            [(1210, 2440), (900, 2480), (590, 2440)],
+            [(200, 1940), (410, 2080), (200, 1420)],
+            [(200, 1160), (220, 780), (590, 800)],
+        ]
+        px, py = primary_slots[slot_index] if six_poster else polar(cx, cy, *profile["primary_radius"], angle)
         pw, ph = profile["primary_size"]
         primary = group["primary"]
         boxes[primary["id"]] = Box(primary["id"], "primary", group["id"], group["color"],
@@ -295,8 +317,9 @@ def layout(spec: dict[str, Any], profile: dict[str, Any]) -> dict[str, Box]:
             else:
                 offsets = [-42, -21, 21]
             sw, sh = profile["satellite_size"]
-            for node, offset in zip(satellites, offsets, strict=True):
-                sx, sy = polar(cx, cy, *profile["satellite_radius"], angle + offset)
+            for satellite_index, (node, offset) in enumerate(zip(satellites, offsets, strict=True)):
+                sx, sy = (satellite_slots[slot_index][satellite_index] if six_poster
+                          else polar(cx, cy, *profile["satellite_radius"], angle + offset))
                 boxes[node["id"]] = Box(node["id"], "satellite", group["id"], group["color"],
                                                  node["title"], node["subtitle"],
                                                  sx - sw / 2, sy - sh / 2, sw, sh,
@@ -434,6 +457,10 @@ def clip_to_box(source: Box, target: Box) -> tuple[float, float]:
     dx, dy = target.cx - source.cx, target.cy - source.cy
     if dx == 0 and dy == 0:
         return source.cx, source.cy
+    # Poster anchors meet the circle; retain mobile's validated routing envelope.
+    if source.role == "center" and source.width == PROFILES["poster-radial"]["core_radius"] * 2:
+        scale = (source.width / 2) / math.hypot(dx, dy)
+        return source.cx + dx * scale, source.cy + dy * scale
     scale_x = (source.width / 2) / abs(dx) if dx else float("inf")
     scale_y = (source.height / 2) / abs(dy) if dy else float("inf")
     scale = min(scale_x, scale_y)
@@ -571,11 +598,13 @@ def render_svg(spec: dict[str, Any], profile: dict[str, Any], boxes: dict[str, B
       .color-blue {{ fill:url(#blue); }} .color-green {{ fill:url(#green); }}
       .color-amber {{ fill:url(#amber); }} .color-violet {{ fill:url(#violet); }}
       .color-rose {{ fill:url(#rose); }}
+      .color-cyan {{ fill:url(#cyan); }}
       .satellite-shape.color-blue {{ fill:#eff6ff; }}
       .satellite-shape.color-green {{ fill:#ecfdf5; }}
       .satellite-shape.color-amber {{ fill:#fff7ed; }}
       .satellite-shape.color-violet {{ fill:#f5f3ff; }}
       .satellite-shape.color-rose {{ fill:#fdf2f8; }}
+      .satellite-shape.color-cyan {{ fill:#ecfeff; }}
       .center-inner {{ fill:#312e81; opacity:.42; pointer-events:none; }}
       .center-shape {{ fill:url(#core); stroke:{("#e0f2fe" if dark else "#ffffff")}; stroke-width:5; filter:url(#shadow); }}
       .node-title {{ fill:#0f172a; font-weight:900; }}

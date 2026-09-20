@@ -64,10 +64,11 @@ Use this schema with `scripts/build_graph.py`. The JSON is the source of truth f
 
 ### `poster-radial`
 
-- Canvas: `1800 × 2600`.
-- Groups: 3–5.
+- Canvas: `1800 × 2600`; 5–6 groups or any group with 3 satellites uses `1800 × 2800` and dedicated slots.
+- Groups: 3–6.
 - Satellites per group: 0–3.
-- Total nodes including center: at most 21.
+- Total nodes including center: at most 25.
+- Six-group executable fixture: `assets/examples/six-module-spec.json`.
 - Cross-relations: at most 5.
 - Use for course pages and deep-review posters where readers may zoom.
 

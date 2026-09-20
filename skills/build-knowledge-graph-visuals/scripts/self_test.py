@@ -112,7 +112,33 @@ def exercise_story(spec_path: Path) -> None:
 def main() -> int:
     skill = Path(__file__).resolve().parent.parent
     examples = skill / "assets" / "examples"
-    fixtures = [examples / "knowledge-graph-method-spec.json", examples / "mobile-method-spec.json"]
+    fixtures = [examples / "knowledge-graph-method-spec.json", examples / "mobile-method-spec.json",
+                examples / "six-module-spec.json"]
+    for count in range(3, 7):
+        spec = json.loads(fixtures[0].read_text(encoding="utf-8"))
+        spec["relations"] = []
+        spec["groups"] = []
+        for index in range(count):
+            spec["groups"].append({
+                "id": f"g{index}", "label": f"模块{index}",
+                "color": list(build_graph.PALETTES)[index],
+                "relation": "关联", "evidence_id": "ev-model",
+                "primary": {"id": f"p{index}", "title": f"模块{index}",
+                            "subtitle": "机制 · 方法", "evidence_id": "ev-model"},
+                "satellites": [{"id": f"s{index}{j}", "title": f"知识{j}",
+                                "subtitle": "关键词 · 提示", "evidence_id": "ev-model"}
+                               for j in range(3)]})
+        profile = build_graph.validate_spec(spec)
+        boxes = build_graph.layout(spec, profile)
+        build_graph.validate_layout(boxes, profile)
+        build_graph.validate_relation_routes(spec, boxes, profile)
+        assert len(boxes) == 1 + count * 4
+        core = boxes[spec["center"]["id"]]
+        for group in spec["groups"]:
+            x, y = build_graph.clip_to_box(core, boxes[group["primary"]["id"]])
+            assert abs(build_graph.math.hypot(x - core.cx, y - core.cy) - core.width / 2) < .001
+        assert build_graph.PROFILES["poster-radial"]["height"] == 2600
+        print(f"PASS: poster {count} groups at full satellite capacity")
     for fixture in fixtures:
         exercise(fixture)
         print(f"PASS: {fixture.name}")

@@ -1,0 +1,57 @@
+{
+  "version": 2,
+  "profile": "poster-radial",
+  "title": "课程图谱制作知识图谱",
+  "subtitle": "六模块布局 · 关键词复习示例",
+  "reading_guide": "中心看目标，环绕看机制，外围看记忆线索。",
+  "footer": "先保留知识结构，再提取关键词；图用于复习，完整解释留在配套清单。",
+  "source_note": "来源：本 Skill 的建模、文案、主题及验收规范。",
+  "evidence": [
+    {"id":"model","source":"references/modeling-method.md","locator":"知识建模方法"},
+    {"id":"copy","source":"references/text-budget.md","locator":"复习图的关键词取舍"},
+    {"id":"style","source":"references/course-reference-style.md","locator":"必须继承的视觉特征"},
+    {"id":"qa","source":"references/qa-checklist.md","locator":"渲染与交付 QA"},
+    {"id":"theme","source":"references/theme-system.md","locator":"共享几何原则"},
+    {"id":"review","source":"references/adversarial-review.md","locator":"对抗式审查"}
+  ],
+  "center":{"id":"core","title":"复习与串联","subtitle":"知识 · 关系 · 记忆线索","evidence_id":"copy"},
+  "groups":[
+    {"id":"g1","label":"知识建模","color":"blue","relation":"建立结构","evidence_id":"model",
+     "primary":{"id":"p1","title":"知识建模","subtitle":"对象 · 关系 · 证据","evidence_id":"model"},
+     "satellites":[
+       {"id":"s11","title":"节点","subtitle":"知识对象","evidence_id":"model"},
+       {"id":"s12","title":"关系","subtitle":"起点 · 动词 · 终点","evidence_id":"model"},
+       {"id":"s13","title":"来源","subtitle":"原文 · 位置","evidence_id":"model"}]},
+    {"id":"g2","label":"关键词","color":"green","relation":"提取线索","evidence_id":"copy",
+     "primary":{"id":"p2","title":"关键词取舍","subtitle":"简洁 · 辨识度","evidence_id":"copy"},
+     "satellites":[
+       {"id":"s21","title":"记忆提示","subtitle":"术语 · 短语","evidence_id":"copy"},
+       {"id":"s22","title":"必要边界","subtitle":"条件 · 否定","evidence_id":"copy"},
+       {"id":"s23","title":"配套清单","subtitle":"细节 · 来源","evidence_id":"copy"}]},
+    {"id":"g3","label":"视觉层级","color":"cyan","relation":"组织呈现","evidence_id":"style",
+     "primary":{"id":"p3","title":"视觉层级","subtitle":"中心 · 模块 · 外围","evidence_id":"style"},
+     "satellites":[
+       {"id":"s31","title":"核心圆","subtitle":"渐变环 · 深色内层","evidence_id":"style"},
+       {"id":"s32","title":"外围节点","subtitle":"浅底 · 关键词","evidence_id":"style"},
+       {"id":"s33","title":"关系标签","subtitle":"贴线 · 避让","evidence_id":"style"}]},
+    {"id":"g4","label":"质量检查","color":"amber","relation":"检查可读性","evidence_id":"qa",
+     "primary":{"id":"p4","title":"质量检查","subtitle":"渲染 · 查看 · 修正","evidence_id":"qa"},
+     "satellites":[
+       {"id":"s41","title":"几何检查","subtitle":"越界 · 遮挡","evidence_id":"qa"},
+       {"id":"s42","title":"手机预览","subtitle":"整图 · 局部","evidence_id":"qa"},
+       {"id":"s43","title":"文字检查","subtitle":"重点 · 主次","evidence_id":"qa"}]},
+    {"id":"g5","label":"双主题","color":"violet","relation":"支持交付","evidence_id":"theme",
+     "primary":{"id":"p5","title":"双主题输出","subtitle":"黑底 · 白底","evidence_id":"theme"},
+     "satellites":[
+       {"id":"s51","title":"同构","subtitle":"同文案 · 同坐标","evidence_id":"theme"},
+       {"id":"s52","title":"SVG 母版","subtitle":"可编辑 · 可缩放","evidence_id":"theme"},
+       {"id":"s53","title":"高清导出","subtitle":"PNG · JPG","evidence_id":"theme"}]},
+    {"id":"g6","label":"反向审查","color":"rose","relation":"校验判断","evidence_id":"review",
+     "primary":{"id":"p6","title":"反向审查","subtitle":"质疑 · 回查 · 修正","evidence_id":"review"},
+     "satellites":[
+       {"id":"s61","title":"关系成立","subtitle":"方向 · 条件","evidence_id":"review"},
+       {"id":"s62","title":"知识完整","subtitle":"主线 · 必要节点","evidence_id":"copy"},
+       {"id":"s63","title":"证据回查","subtitle":"明示 · 推断","evidence_id":"model"}]}
+  ],
+  "relations":[]
+}

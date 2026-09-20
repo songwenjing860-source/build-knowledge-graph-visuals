@@ -22,7 +22,7 @@
 
 ![评估与可观测性白底](skills/build-knowledge-graph-visuals/assets/examples/course-reference/evaluation-light.png)
 
-参考文件及复用规则见 [课程参考样式](skills/build-knowledge-graph-visuals/references/course-reference-style.md)。附规划执行、上下文管理两份白底 SVG。历史参考图用于视觉校准；新内容仍须重新建模和检查。现有径向脚本容量小于六模块密集参考，复现该密度时需要扩展确定性模板。旧方法论和 Story Loop 示例保留为回归样例与可选风格。
+参考文件及复用规则见 [课程参考样式](skills/build-knowledge-graph-visuals/references/course-reference-style.md)。附规划执行、上下文管理两份白底 SVG。径向海报脚本支持 3–6 个模块，每模块最多 3 个外围节点，总计最多 25 节点；见 [六模块可执行示例](skills/build-knowledge-graph-visuals/assets/examples/six-module-spec.json)。新内容仍须建模及检查。旧方法论和 Story Loop 示例保留为回归样例与可选风格。
 
 ## 能做什么
 
